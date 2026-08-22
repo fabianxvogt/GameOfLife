@@ -10,7 +10,7 @@ class Creature(Plane):
             super().__init__(generate_state_from_state_string(state))
 
     def copy(self):
-        return Creature(copy.copy(self.state))
+        return Creature(copy.deepcopy(self.state))
     
 
 class CreatureLoader:
