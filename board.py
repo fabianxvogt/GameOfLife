@@ -26,18 +26,20 @@ class Board(Plane):
     
     def get_new_state(self, rule: Rule):
         new_state = []
+        last_row = len(self.state) - 1
         for i, row in enumerate(self.state):
             new_row = []
+            last_column = len(row) - 1
             for j, cell in enumerate(row):
                 neighbours = [
                     self.state[i-1][j-1] if i > 0 and j > 0 else False,
                     self.state[i-1][j]   if i > 0 else False,
-                    self.state[i-1][j+1] if i > 0 and j < len(row) - 1 else False,
+                    self.state[i-1][j+1] if i > 0 and j < last_column else False,
                     self.state[i][j-1]   if j > 0 else False,
-                    self.state[i][j+1]   if j < len(row) - 1 else False,
-                    self.state[i+1][j-1] if i < len(row) - 1 and j > 0 else False,
-                    self.state[i+1][j]   if i < len(row) - 1 else False,
-                    self.state[i+1][j+1] if i < len(row) - 1 and j < len(row) - 1 else False,
+                    self.state[i][j+1]   if j < last_column else False,
+                    self.state[i+1][j-1] if i < last_row and j > 0 else False,
+                    self.state[i+1][j]   if i < last_row else False,
+                    self.state[i+1][j+1] if i < last_row and j < last_column else False,
                 ]
                 new_row.append(rule.cell_is_alive(cell, neighbours))
             new_state.append(new_row)
