@@ -68,25 +68,39 @@ class Plane:
         self.rotate_by(0 if append_side == BOTTOM else 4 - append_side)
 
     def insert_plane_at(self, plane: Plane, start_x, start_y, allow_plane_extension = False):
-        current_y = start_y
-        for row in plane.state:
-            if current_y >= self.y_len(): 
-                if allow_plane_extension:
-                    self.add_empty_row()
-                else:
-                    raise ValueError("Out of bounds!")
-            
-            current_x = start_x
-            for cell in row:
-                if current_x >= self.x_len(): 
-                    if allow_plane_extension:
-                        self.add_empty_col()
-                    else:
-                        raise ValueError("Out of bounds!")
-                self.state[current_y][current_x] = cell
-                current_x += 1
+        source_height = len(plane.state)
+        source_width = max((len(row) for row in plane.state), default=0)
+        if source_height == 0 or source_width == 0:
+            return
 
-            current_y += 1
+        current_height = len(self.state)
+        current_width = max((len(row) for row in self.state), default=0)
+        end_x = start_x + source_width
+        end_y = start_y + source_height
+
+        if not allow_plane_extension and (
+            start_x < 0
+            or start_y < 0
+            or end_x > current_width
+            or end_y > current_height
+        ):
+            raise ValueError("Out of bounds!")
+
+        top_padding = max(0, -start_y) if allow_plane_extension else 0
+        left_padding = max(0, -start_x) if allow_plane_extension else 0
+        target_width = max(current_width + left_padding, end_x + left_padding)
+        target_height = max(current_height + top_padding, end_y + top_padding)
+
+        expanded_state = [[False] * target_width for _ in range(target_height)]
+        for y, row in enumerate(self.state):
+            for x, cell in enumerate(row):
+                expanded_state[y + top_padding][x + left_padding] = cell
+
+        for y, row in enumerate(plane.state):
+            for x, cell in enumerate(row):
+                expanded_state[y + start_y + top_padding][x + start_x + left_padding] = cell
+
+        self.state = expanded_state
 
     def insert_plane_in_all_corners(self, plane: Plane):
         plane_b = plane.copy().rotate_by(1)
