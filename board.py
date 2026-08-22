@@ -1,16 +1,15 @@
 
 
-from creatures.creature import Creature
+from typing import Any
+
 from plane import Plane
 from rules.rule import Rule
-from state import generate_empty_state, generate_random_state
 
 
 class Board(Plane):
 
-    def __init__(self, initial_state: list[list] = None, x_size=0, y_size=0, chance_for_active_cell=0) -> None:
+    def __init__(self, initial_state: Any = None, x_size=0, y_size=0, chance_for_active_cell=0) -> None:
         super().__init__(initial_state, x_size, y_size, chance_for_active_cell)
-        
     def insert_creature_at(self, creature, start_x, start_y):
         super().insert_plane_at(creature, start_x, start_y, False)
 
@@ -23,7 +22,19 @@ class Board(Plane):
         self.last_state = self.state
         self.state = new_state
         return state_is_stable
-    
+
+    def find_cycle_period(self, rule: Rule, max_generations: int = 100):
+        """Return the first repeated-state period, or None within the limit."""
+        seen = {}
+        for generation in range(max_generations + 1):
+            state_key = tuple(tuple(row) for row in self.state)
+            if state_key in seen:
+                return generation - seen[state_key]
+            seen[state_key] = generation
+            if generation < max_generations:
+                self.apply_rule(rule)
+        return None
+
     def get_new_state(self, rule: Rule):
         new_state = []
         last_row = len(self.state) - 1

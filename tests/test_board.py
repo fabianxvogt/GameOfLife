@@ -2,6 +2,7 @@ import unittest
 
 from board import Board
 from rules.conways_rule import ConwaysRule
+from rules.rule import Rule
 
 
 class BoardTest(unittest.TestCase):
@@ -70,17 +71,31 @@ class BoardTest(unittest.TestCase):
             ],
         )
 
+    def test_find_cycle_period_detects_period_three(self):
+        states = [[[False]], [[True]], [[True, True]]]
+        board = Board(initial_state=states[0])
+        calls = 0
+
+        def next_state(rule):
+            nonlocal calls
+            calls += 1
+            return states[calls % len(states)]
+
+        board.get_new_state = next_state
+
+        self.assertEqual(board.find_cycle_period(Rule(), max_generations=4), 3)
+
     def test_apply_rule_computes_the_next_state_once(self):
         board = Board(initial_state=[[False]])
         calls = []
 
-        def next_state(_rule):
+        def next_state(rule):
             calls.append(True)
             return [[True]]
 
         board.get_new_state = next_state
 
-        self.assertFalse(board.apply_rule(object()))
+        self.assertFalse(board.apply_rule(Rule()))
         self.assertEqual(calls, [True])
         self.assertEqual(board.state, [[True]])
 

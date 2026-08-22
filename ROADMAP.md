@@ -1,0 +1,42 @@
+# GameOfLife Roadmap
+
+Console implementation of Conway's Game of Life with a pluggable library: creatures
+(`creatures/`), swappable rules (`rules/rule.py`, `conways_rule.py`), board/plane/state
+modules, and a pytest suite (`tests/`). Import creatures, place them, run them under your
+own rules.
+
+## Now
+
+1. Write the quickstart that the README promises: a concrete runnable example
+   (import a creature, place it, run N generations) with expected console output.
+2. Verify the test suite green after this week's bounds/stability fixes
+   (`pytest tests/ -v`) and note the Python version in the README.
+3. Add 2–3 more classic creatures (e.g. glider gun, lightweight spaceship) with tests,
+   to make the creature library feel real.
+
+## Next
+
+- Second rule implementation beyond Conway (e.g. HighLife) to prove `rule.py`
+  abstraction is genuinely pluggable.
+- Simple interactive mode: step/pause/reset controls from the console.
+- Pattern file format: load/save creature placements instead of code-only definitions.
+- CI: run the test suite on push (tiny workflow).
+- Decide publishability under the portfolio checklist (license, README polish).
+
+## Later
+
+- Performance: board rendering and stepping are fine at toy sizes; only optimize if a
+  pattern class needs it. SPECULATIVE that numpy would help — measure first.
+- Connection point to `toy-projects/CellularAutomata` and the Rule 30 work: a shared
+  "cellular automata family" write-up linking the three projects.
+- Optional visual frontend if the console ever becomes the bottleneck for fun.
+
+## Done
+
+- 2026-08-22: deep-copy fix for creature state; Plane insertion extension-bounds fix;
+  rectangular board bounds + stability tests fixed.
+- Core implemented: board, plane, state modules; creature library started; Conway's rule
+  plus a generic rule interface.
+- Test suite covering board, creature, and plane behavior.
+- 2026-08-22: added `Board.find_cycle_period` with a period-3 regression test for
+  oscillators beyond the legacy period-2 stability signal.
