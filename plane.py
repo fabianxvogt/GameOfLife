@@ -1,4 +1,4 @@
-from typing import Self
+from __future__ import annotations
 
 from rules.rule import Rule
 from state import NULL_STATE, generate_empty_state, generate_random_state
@@ -54,20 +54,20 @@ class Plane:
     def __repr__(self) -> str:
         return '\n'.join([''.join(['X' if cell else '_' for cell in row]) for row in self.state])
 
-    def append_plane_bottom(self, plane: Self, n = 1, space_between = 2):
+    def append_plane_bottom(self, plane: Plane, n = 1, space_between = 2):
         for i in range(n):
             for s in range(space_between):
                 self.add_empty_row()
             for row in plane.state:
                 self.add_row(row)
 
-    def append_plane(self, plane: Self, append_side = BOTTOM, n = 1, space_between = 2):
+    def append_plane(self, plane: Plane, append_side = BOTTOM, n = 1, space_between = 2):
         self.rotate_by(append_side)
         plane.rotate_by(append_side)
         self.append_plane_bottom(plane, n, space_between)
         self.rotate_by(0 if append_side == BOTTOM else 4 - append_side)
 
-    def insert_plane_at(self, plane: Self, start_x, start_y, allow_plane_extension = False):
+    def insert_plane_at(self, plane: Plane, start_x, start_y, allow_plane_extension = False):
         current_y = start_y
         for row in plane.state:
             if current_y >= self.y_len(): 
@@ -88,7 +88,7 @@ class Plane:
 
             current_y += 1
 
-    def insert_plane_in_all_corners(self, plane: Self):
+    def insert_plane_in_all_corners(self, plane: Plane):
         plane_b = plane.copy().rotate_by(1)
         plane_c = plane.copy().rotate_by(2)
         plane_d = plane.copy().rotate_by(3)
@@ -122,7 +122,7 @@ class Plane:
                 collapsed_state.append(row)
         self.state = collapsed_state
 
-    def get_variation(self, rule, variation_steps = 0) -> Self:
+    def get_variation(self, rule, variation_steps = 0) -> Plane:
         if variation_steps == 0:
             return self
         variation = self.copy()

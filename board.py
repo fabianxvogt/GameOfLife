@@ -18,12 +18,10 @@ class Board(Plane):
         super().insert_plane_in_all_corners(creature)
 
     def apply_rule(self, rule) -> bool:
-        state_is_stable = False
         new_state = self.get_new_state(rule)
-        if new_state == self.last_state or new_state == self.state:
-            state_is_stable = True
+        state_is_stable = new_state == self.last_state or new_state == self.state
         self.last_state = self.state
-        self.state = self.get_new_state(rule)
+        self.state = new_state
         return state_is_stable
     
     def get_new_state(self, rule: Rule):
