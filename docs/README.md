@@ -23,6 +23,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   session without adding runtime dependencies.
 - The console app and library use only the Python standard library; `pytest` is
   test-only and is invoked with `python3 -m pytest -q`.
+- GitHub Actions runs the test suite on Python 3.9 and 3.11, exercising the
+  lowest documented runtime as well as the existing CI runtime.
 - `creatures.single.lwss.LWSS` provides the canonical nine-cell lightweight
   spaceship pattern used by the bounded translation regression.
 - `creatures.single.gosper_glider_gun.GOSPER_GLIDER_GUN` provides the canonical
