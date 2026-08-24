@@ -21,6 +21,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   finite board sized just large enough to contain it.
 - `cli.py` provides bounded batch stepping and a prompt-driven step/reset/quit
   session without adding runtime dependencies.
+- The console app and library use only the Python standard library; `pytest` is
+  test-only and is invoked with `python3 -m pytest -q`.
 - `creatures.single.lwss.LWSS` provides the canonical nine-cell lightweight
   spaceship pattern used by the bounded translation regression.
 - `creatures.single.gosper_glider_gun.GOSPER_GLIDER_GUN` provides the canonical

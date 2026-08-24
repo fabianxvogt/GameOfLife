@@ -36,7 +36,14 @@ XXX
 ___
 ```
 
-The project is tested with Python 3.9+ using `python3 -m pytest -q`.
+## Requirements and tests
+
+The console app and library use only Python's standard library and support
+Python 3.9+. Install `pytest` only when running the test suite:
+
+```shell
+python3 -m pytest -q
+```
 
 The creature library includes `creatures.single.glider.GLIDER`, the canonical
 nine-cell `creatures.single.lwss.LWSS`, and the 36-cell

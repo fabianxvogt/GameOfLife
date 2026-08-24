@@ -22,6 +22,8 @@ own rules.
   placement are covered. Done 2026-08-25.)
 - CI: run the test suite on push (tiny workflow). (Done 2026-08-25.)
 - Decide publishability under the portfolio checklist (license, README polish).
+  README dependency/setup clarity is covered; license selection remains a human
+  decision.
 
 ## Later
 
