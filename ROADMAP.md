@@ -43,3 +43,5 @@ own rules.
 - 2026-08-24: added and verified a runnable blinker quickstart in the README. [EMPIRICAL]
 - 2026-08-25: added a reusable glider creature and a four-generation translation
   regression on a padded finite board. [EMPIRICAL]
+- 2026-08-25: made `CreatureLoader` accept newline-terminated pattern files and
+  added a temporary glider-file regression. [EMPIRICAL]

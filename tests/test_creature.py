@@ -1,7 +1,9 @@
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from creatures.combinations.combined_creature import CombinedCreature
-from creatures.creature import Creature
+from creatures.creature import Creature, CreatureLoader
 from creatures.single.glider import GLIDER
 
 
@@ -23,6 +25,15 @@ class CreatureTest(unittest.TestCase):
 
     def test_glider_pattern_has_five_live_cells(self):
         self.assertEqual(sum(map(sum, GLIDER.state)), 5)
+
+    def test_load_creature_from_file_accepts_trailing_newline(self):
+        with TemporaryDirectory() as temporary_directory:
+            fixture_path = Path(temporary_directory) / "glider.txt"
+            fixture_path.write_text("_X_\n__X\nXXX\n", encoding="utf-8")
+
+            loaded = CreatureLoader.load_creature_from_file(fixture_path)
+
+        self.assertEqual(loaded.state, GLIDER.state)
 
 
 if __name__ == "__main__":

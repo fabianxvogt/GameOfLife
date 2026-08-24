@@ -30,5 +30,6 @@ class CreatureLoader:
         return Creature(creature_state)
 
     def load_creature_from_file(filename: str) -> Creature:
-        creature_str = open(filename).read()
+        with open(filename) as creature_file:
+            creature_str = creature_file.read().rstrip("\r\n")
         return CreatureLoader.load_creature_from_str(creature_str)
