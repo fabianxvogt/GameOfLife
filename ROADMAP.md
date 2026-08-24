@@ -15,8 +15,6 @@ own rules.
 
 ## Next
 
-- Second rule implementation beyond Conway (e.g. HighLife) to prove `rule.py`
-  abstraction is genuinely pluggable.
 - Simple interactive mode: step/pause/reset controls from the console.
 - Pattern file format: load/save creature placements instead of code-only definitions.
 - CI: run the test suite on push (tiny workflow).
@@ -47,3 +45,5 @@ own rules.
   added a temporary glider-file regression. [EMPIRICAL]
 - 2026-08-25: added an opt-in translation-normalized cycle key and a bounded
   four-generation glider cycle regression. [EMPIRICAL]
+- 2026-08-25: added `HighLifeRule` with focused B36/S23 and Conway-difference
+  regressions. [EMPIRICAL]

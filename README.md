@@ -43,3 +43,5 @@ large enough finite board, four Conway generations translate it by one cell
 down and one cell right; the regression suite pins that bounded behavior.
 `Board.find_cycle_period` can optionally compare translation-normalized live-cell
 geometry with `normalize_translation=True` when analyzing moving patterns.
+The rule interface also includes `rules.highlife_rule.HighLifeRule`, implementing
+HighLife's `B36/S23` birth and survival counts.

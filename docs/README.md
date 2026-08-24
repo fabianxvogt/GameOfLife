@@ -13,6 +13,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
 - `Board.find_cycle_period(..., normalize_translation=True)` compares live-cell
   geometry after removing dead outer padding, so bounded translating-pattern checks
   can be explicit without changing the default exact-state behavior.
+- `rules.highlife_rule.HighLifeRule` implements HighLife's B36/S23 transition table
+  through the existing `Rule.cell_is_alive` interface.
 
 Classification: INCREMENTAL — empirical instrument and regression test; no claim about
 pattern behavior beyond the bounded test.
