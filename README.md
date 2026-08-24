@@ -38,9 +38,11 @@ ___
 
 The project is tested with Python 3.9+ using `python3 -m pytest -q`.
 
-The creature library also includes `creatures.single.glider.GLIDER`. On a
-large enough finite board, four Conway generations translate it by one cell
-down and one cell right; the regression suite pins that bounded behavior.
+The creature library includes `creatures.single.glider.GLIDER` and the
+canonical nine-cell `creatures.single.lwss.LWSS`. On a large enough finite
+board, four Conway generations translate the glider by one cell down and one
+cell right, while four generations translate the LWSS two cells right; the
+regression suite pins both bounded behaviors.
 `Board.find_cycle_period` can optionally compare translation-normalized live-cell
 geometry with `normalize_translation=True` when analyzing moving patterns.
 The rule interface also includes `rules.highlife_rule.HighLifeRule`, implementing

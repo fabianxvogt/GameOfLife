@@ -19,6 +19,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   files that round-trip through `CreatureLoader.load_creature_from_file(...)`.
 - `cli.py` provides bounded batch stepping and a prompt-driven step/reset/quit
   session without adding runtime dependencies.
+- `creatures.single.lwss.LWSS` provides the canonical nine-cell lightweight
+  spaceship pattern used by the bounded translation regression.
 
 Classification: INCREMENTAL — empirical instrument and regression test; no claim about
 pattern behavior beyond the bounded test.

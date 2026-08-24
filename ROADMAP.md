@@ -11,7 +11,8 @@ own rules.
 2. Verify the test suite green after this week's bounds/stability fixes
    (`pytest tests/ -v`) and note the Python version in the README.
 3. Add 2–3 more classic creatures (e.g. glider gun, lightweight spaceship) with tests,
-   to make the creature library feel real. (One glider is now included.)
+   to make the creature library feel real. (Glider and LWSS are now included;
+   a glider gun or another classic remains open.)
 
 ## Next
 
@@ -55,3 +56,6 @@ own rules.
   pytest suite on pushes and pull requests. [EMPIRICAL]
 - 2026-08-25: added the dependency-free `cli.py` runner for bounded batch stepping
   and prompt-driven step/reset/quit sessions. [EMPIRICAL]
+- 2026-08-25: added the canonical nine-cell lightweight spaceship (LWSS) and a
+  four-generation, two-cell translation regression on a padded finite board.
+  [EMPIRICAL]

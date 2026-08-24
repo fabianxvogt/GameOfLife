@@ -5,6 +5,7 @@ from tempfile import TemporaryDirectory
 from creatures.combinations.combined_creature import CombinedCreature
 from creatures.creature import Creature, CreatureLoader
 from creatures.single.glider import GLIDER
+from creatures.single.lwss import LWSS
 
 
 class CreatureTest(unittest.TestCase):
@@ -25,6 +26,9 @@ class CreatureTest(unittest.TestCase):
 
     def test_glider_pattern_has_five_live_cells(self):
         self.assertEqual(sum(map(sum, GLIDER.state)), 5)
+
+    def test_lwss_pattern_has_nine_live_cells(self):
+        self.assertEqual(sum(map(sum, LWSS.state)), 9)
 
     def test_load_creature_from_file_accepts_trailing_newline(self):
         with TemporaryDirectory() as temporary_directory:

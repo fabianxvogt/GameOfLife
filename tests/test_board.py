@@ -2,6 +2,7 @@ import unittest
 
 from board import Board
 from creatures.single.glider import GLIDER
+from creatures.single.lwss import LWSS
 from rules.conways_rule import ConwaysRule
 from rules.rule import Rule
 
@@ -125,6 +126,24 @@ class BoardTest(unittest.TestCase):
             if cell
         }
         self.assertEqual(live_cells, {(2, 3), (3, 4), (4, 2), (4, 3), (4, 4)})
+
+    def test_lwss_translates_two_cells_after_four_generations(self):
+        board = Board(initial_state=[[False] * 16 for _ in range(14)])
+        board.insert_creature_at(LWSS, 3, 5)
+
+        for _ in range(4):
+            board.apply_rule(ConwaysRule())
+
+        live_cells = {
+            (y, x)
+            for y, row in enumerate(board.state)
+            for x, cell in enumerate(row)
+            if cell
+        }
+        self.assertEqual(
+            live_cells,
+            {(5, 5), (5, 8), (6, 9), (7, 5), (7, 9), (8, 6), (8, 7), (8, 8), (8, 9)},
+        )
 
     def test_normalized_cycle_period_detects_translating_glider(self):
         board = Board(initial_state=[[False] * 8 for _ in range(8)])
