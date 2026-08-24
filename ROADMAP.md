@@ -7,8 +7,7 @@ own rules.
 
 ## Now
 
-1. Write the quickstart that the README promises: a concrete runnable example
-   (import a creature, place it, run N generations) with expected console output.
+1. [x] Write a concrete runnable blinker quickstart with expected console output.
 2. Verify the test suite green after this week's bounds/stability fixes
    (`pytest tests/ -v`) and note the Python version in the README.
 3. Add 2–3 more classic creatures (e.g. glider gun, lightweight spaceship) with tests,
@@ -41,3 +40,4 @@ own rules.
 - 2026-08-22: added `Board.find_cycle_period` with a period-3 regression test for
   oscillators beyond the legacy period-2 stability signal.
 - 2026-08-22: fixed `CombinedCreature` coordinate-mapping iteration and added a regression test.
+- 2026-08-24: added and verified a runnable blinker quickstart in the README. [EMPIRICAL]
