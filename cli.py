@@ -36,6 +36,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="X/_ pattern file to load; defaults to the built-in glider",
     )
     parser.add_argument(
+        "--x",
+        default=0,
+        type=non_negative_int,
+        help="horizontal placement offset from the board's left edge (default: 0)",
+    )
+    parser.add_argument(
+        "--y",
+        default=0,
+        type=non_negative_int,
+        help="vertical placement offset from the board's top edge (default: 0)",
+    )
+    parser.add_argument(
         "--rule",
         choices=("conway", "highlife"),
         default="conway",
@@ -60,14 +72,24 @@ def build_rule(name: str) -> Rule:
     return {"conway": ConwaysRule, "highlife": HighLifeRule}[name]()
 
 
-def load_board(pattern_path: Optional[Path] = None) -> Board:
-    """Load a pattern into an isolated finite board."""
+def load_board(
+    pattern_path: Optional[Path] = None, start_x: int = 0, start_y: int = 0
+) -> Board:
+    """Load a pattern into an isolated finite board at a bounded offset."""
+    if start_x < 0 or start_y < 0:
+        raise ValueError("Pattern placement offsets must be non-negative")
+
     creature = (
         CreatureLoader.load_creature_from_file(pattern_path)
         if pattern_path is not None
         else GLIDER
     )
-    return Board(initial_state=copy.deepcopy(creature.state))
+    board = Board(
+        x_size=creature.y_len() + start_y,
+        y_size=creature.x_len() + start_x,
+    )
+    board.insert_creature_at(creature, start_x, start_y)
+    return board
 
 
 def render_frame(board: Board, generation: int) -> str:
@@ -120,7 +142,7 @@ def run_interactive(
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     args = build_parser().parse_args(argv)
-    board = load_board(args.pattern)
+    board = load_board(args.pattern, start_x=args.x, start_y=args.y)
     rule = build_rule(args.rule)
 
     if args.interactive:

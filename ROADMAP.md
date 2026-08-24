@@ -17,8 +17,9 @@ own rules.
 
 - [x] Simple interactive mode: prompt-driven step/reset/quit controls from the
   console. (Done 2026-08-25.)
-- Pattern file format: load/save creature placements instead of code-only definitions.
-  (Canonical creature save/load round-trip is now covered; board placements remain open.)
+- [x] Pattern file format: load/save creature placements instead of code-only definitions.
+  (Canonical creature save/load round-trip and bounded `cli.py --x`/`--y` board
+  placement are covered. Done 2026-08-25.)
 - CI: run the test suite on push (tiny workflow). (Done 2026-08-25.)
 - Decide publishability under the portfolio checklist (license, README polish).
 
@@ -60,3 +61,5 @@ own rules.
   [EMPIRICAL]
 - 2026-08-25: added the canonical 36×9 Gosper glider gun fixture and a
   30-generation finite-board core-return regression. [EMPIRICAL]
+- 2026-08-25: added bounded non-negative `cli.py --x`/`--y` placement for
+  loaded patterns, with a finite board sized to contain the placement. [EMPIRICAL]

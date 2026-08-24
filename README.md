@@ -61,8 +61,12 @@ pattern argument it starts from the built-in glider:
 
 ```shell
 python3 cli.py --steps 4
-python3 cli.py --pattern path/to/pattern.txt --rule highlife --steps 3
+python3 cli.py --pattern path/to/pattern.txt --x 4 --y 2 --rule highlife --steps 3
 ```
+
+Pattern files are placed from their top-left corner with the non-negative
+`--x` and `--y` offsets; the finite board grows just enough to contain the
+pattern.
 
 Use `--interactive` for a prompt-driven session. Press Enter (or type `s`) to
 step, `r` to reset to the loaded pattern, and `q` to quit:

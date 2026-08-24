@@ -17,6 +17,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   through the existing `Rule.cell_is_alive` interface.
 - `CreatureLoader.save_creature_to_file(...)` writes canonical `_`/`X` pattern
   files that round-trip through `CreatureLoader.load_creature_from_file(...)`.
+- `cli.py --x` and `--y` place a loaded pattern at a non-negative offset on a
+  finite board sized just large enough to contain it.
 - `cli.py` provides bounded batch stepping and a prompt-driven step/reset/quit
   session without adding runtime dependencies.
 - `creatures.single.lwss.LWSS` provides the canonical nine-cell lightweight

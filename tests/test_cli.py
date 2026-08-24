@@ -36,6 +36,55 @@ class CliTest(unittest.TestCase):
         board.state[0][1] = False
         self.assertTrue(GLIDER.state[0][1])
 
+    def test_load_board_places_pattern_at_requested_offset(self):
+        with TemporaryDirectory() as temporary_directory:
+            pattern_path = Path(temporary_directory) / "pattern.txt"
+            pattern_path.write_text("XX\n_X\n", encoding="utf-8")
+
+            board = load_board(pattern_path, start_x=1, start_y=2)
+
+        self.assertEqual(
+            board.state,
+            [
+                [False, False, False],
+                [False, False, False],
+                [False, True, True],
+                [False, False, True],
+            ],
+        )
+
+    def test_load_board_rejects_negative_placement_offsets(self):
+        with self.assertRaises(ValueError):
+            load_board(start_x=-1)
+
+    def test_main_places_saved_pattern_with_cli_offsets(self):
+        with TemporaryDirectory() as temporary_directory:
+            pattern_path = Path(temporary_directory) / "pattern.txt"
+            pattern_path.write_text("XX\nXX\n", encoding="utf-8")
+
+            from contextlib import redirect_stdout
+            from io import StringIO
+
+            output = StringIO()
+            with redirect_stdout(output):
+                exit_code = main(
+                    [
+                        "--pattern",
+                        str(pattern_path),
+                        "--x",
+                        "1",
+                        "--y",
+                        "2",
+                        "--steps",
+                        "0",
+                    ]
+                )
+
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(
+            output.getvalue(), "Generation 0\n___\n___\n_XX\n_XX\n"
+        )
+
     def test_rule_selection_includes_highlife(self):
         self.assertIsInstance(build_rule("highlife"), HighLifeRule)
 
