@@ -15,7 +15,8 @@ own rules.
 
 ## Next
 
-- Simple interactive mode: step/pause/reset controls from the console.
+- [x] Simple interactive mode: prompt-driven step/reset/quit controls from the
+  console. (Done 2026-08-25.)
 - Pattern file format: load/save creature placements instead of code-only definitions.
   (Canonical creature save/load round-trip is now covered; board placements remain open.)
 - CI: run the test suite on push (tiny workflow). (Done 2026-08-25.)
@@ -52,3 +53,5 @@ own rules.
   regression using the existing `_`/`X` loader format. [EMPIRICAL]
 - 2026-08-25: added a minimal GitHub Actions workflow running the dependency-light
   pytest suite on pushes and pull requests. [EMPIRICAL]
+- 2026-08-25: added the dependency-free `cli.py` runner for bounded batch stepping
+  and prompt-driven step/reset/quit sessions. [EMPIRICAL]

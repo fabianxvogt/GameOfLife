@@ -49,3 +49,20 @@ Creature patterns can be saved and loaded with
 `CreatureLoader.save_creature_to_file(...)` and
 `CreatureLoader.load_creature_from_file(...)`. The canonical text format uses
 `X` for live cells and `_` for dead cells, with one row per line.
+
+## Command-line stepping
+
+The dependency-free runner prints a bounded sequence of generations. With no
+pattern argument it starts from the built-in glider:
+
+```shell
+python3 cli.py --steps 4
+python3 cli.py --pattern path/to/pattern.txt --rule highlife --steps 3
+```
+
+Use `--interactive` for a prompt-driven session. Press Enter (or type `s`) to
+step, `r` to reset to the loaded pattern, and `q` to quit:
+
+```shell
+python3 cli.py --interactive
+```

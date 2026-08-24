@@ -17,6 +17,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   through the existing `Rule.cell_is_alive` interface.
 - `CreatureLoader.save_creature_to_file(...)` writes canonical `_`/`X` pattern
   files that round-trip through `CreatureLoader.load_creature_from_file(...)`.
+- `cli.py` provides bounded batch stepping and a prompt-driven step/reset/quit
+  session without adding runtime dependencies.
 
 Classification: INCREMENTAL — empirical instrument and regression test; no claim about
 pattern behavior beyond the bounded test.
