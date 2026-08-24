@@ -15,6 +15,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   can be explicit without changing the default exact-state behavior.
 - `rules.highlife_rule.HighLifeRule` implements HighLife's B36/S23 transition table
   through the existing `Rule.cell_is_alive` interface.
+- `CreatureLoader.save_creature_to_file(...)` writes canonical `_`/`X` pattern
+  files that round-trip through `CreatureLoader.load_creature_from_file(...)`.
 
 Classification: INCREMENTAL — empirical instrument and regression test; no claim about
 pattern behavior beyond the bounded test.

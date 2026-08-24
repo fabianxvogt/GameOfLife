@@ -17,6 +17,7 @@ own rules.
 
 - Simple interactive mode: step/pause/reset controls from the console.
 - Pattern file format: load/save creature placements instead of code-only definitions.
+  (Canonical creature save/load round-trip is now covered; board placements remain open.)
 - CI: run the test suite on push (tiny workflow).
 - Decide publishability under the portfolio checklist (license, README polish).
 
@@ -47,3 +48,5 @@ own rules.
   four-generation glider cycle regression. [EMPIRICAL]
 - 2026-08-25: added `HighLifeRule` with focused B36/S23 and Conway-difference
   regressions. [EMPIRICAL]
+- 2026-08-25: added canonical creature-pattern saving with a file round-trip
+  regression using the existing `_`/`X` loader format. [EMPIRICAL]

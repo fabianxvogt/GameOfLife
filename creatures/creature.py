@@ -14,6 +14,7 @@ class Creature(Plane):
     
 
 class CreatureLoader:
+    @staticmethod
     def load_creature_from_str(creature_str: str) -> Creature:
         rows = creature_str.split('\n')
         row_len = 0
@@ -29,7 +30,20 @@ class CreatureLoader:
             creature_state.append(creature_row)
         return Creature(creature_state)
 
+    @staticmethod
     def load_creature_from_file(filename: str) -> Creature:
         with open(filename) as creature_file:
             creature_str = creature_file.read().rstrip("\r\n")
         return CreatureLoader.load_creature_from_str(creature_str)
+
+    @staticmethod
+    def save_creature_to_file(creature: Creature, filename: str) -> None:
+        """Save a creature in the text format accepted by the loader.
+
+        ``X`` represents a live cell and ``_`` represents a dead cell. A final
+        newline is written for conventional text-file behavior; the loader
+        already treats terminal newlines as insignificant.
+        """
+        with open(filename, "w", encoding="utf-8", newline="\n") as creature_file:
+            creature_file.write(repr(creature))
+            creature_file.write("\n")

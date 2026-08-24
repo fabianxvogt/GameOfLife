@@ -45,3 +45,7 @@ down and one cell right; the regression suite pins that bounded behavior.
 geometry with `normalize_translation=True` when analyzing moving patterns.
 The rule interface also includes `rules.highlife_rule.HighLifeRule`, implementing
 HighLife's `B36/S23` birth and survival counts.
+Creature patterns can be saved and loaded with
+`CreatureLoader.save_creature_to_file(...)` and
+`CreatureLoader.load_creature_from_file(...)`. The canonical text format uses
+`X` for live cells and `_` for dead cells, with one row per line.

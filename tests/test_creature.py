@@ -35,6 +35,17 @@ class CreatureTest(unittest.TestCase):
 
         self.assertEqual(loaded.state, GLIDER.state)
 
+    def test_save_and_reload_round_trips_creature_pattern(self):
+        with TemporaryDirectory() as temporary_directory:
+            pattern_path = Path(temporary_directory) / "glider.txt"
+
+            CreatureLoader.save_creature_to_file(GLIDER, pattern_path)
+            saved_text = pattern_path.read_text(encoding="utf-8")
+            loaded = CreatureLoader.load_creature_from_file(pattern_path)
+
+        self.assertEqual(saved_text, "_X_\n__X\nXXX\n")
+        self.assertEqual(loaded.state, GLIDER.state)
+
 
 if __name__ == "__main__":
     unittest.main()
