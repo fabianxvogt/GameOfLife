@@ -4,6 +4,18 @@ from plane import Plane
 
 
 class PlaneInsertTest(unittest.TestCase):
+    def test_normalized_state_key_removes_dead_padding(self):
+        plane = Plane(
+            initial_state=[
+                [False, False, False, False],
+                [False, True, False, False],
+                [False, False, True, False],
+                [False, False, False, False],
+            ]
+        )
+
+        self.assertEqual(plane.normalized_state_key(), ((True, False), (False, True)))
+
     def test_insert_plane_rejects_negative_coordinates_without_extension(self):
         destination = Plane(x_size=2, y_size=2)
         source = Plane(initial_state=[[True]])

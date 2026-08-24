@@ -126,6 +126,17 @@ class BoardTest(unittest.TestCase):
         }
         self.assertEqual(live_cells, {(2, 3), (3, 4), (4, 2), (4, 3), (4, 4)})
 
+    def test_normalized_cycle_period_detects_translating_glider(self):
+        board = Board(initial_state=[[False] * 8 for _ in range(8)])
+        board.insert_creature_at(GLIDER, 1, 1)
+
+        self.assertEqual(
+            board.find_cycle_period(
+                ConwaysRule(), max_generations=4, normalize_translation=True
+            ),
+            4,
+        )
+
     def test_apply_rule_computes_the_next_state_once(self):
         board = Board(initial_state=[[False]])
         calls = []

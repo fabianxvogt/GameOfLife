@@ -10,6 +10,9 @@ Never store credentials, private data, generated output, logs, datasets, or buil
 
 - `Board.find_cycle_period` detects the first repeated board state within a bounded
   generation budget; the period-3 regression test lives in `tests/test_board.py`.
+- `Board.find_cycle_period(..., normalize_translation=True)` compares live-cell
+  geometry after removing dead outer padding, so bounded translating-pattern checks
+  can be explicit without changing the default exact-state behavior.
 
 Classification: INCREMENTAL — empirical instrument and regression test; no claim about
 pattern behavior beyond the bounded test.

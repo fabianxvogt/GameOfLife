@@ -45,3 +45,5 @@ own rules.
   regression on a padded finite board. [EMPIRICAL]
 - 2026-08-25: made `CreatureLoader` accept newline-terminated pattern files and
   added a temporary glider-file regression. [EMPIRICAL]
+- 2026-08-25: added an opt-in translation-normalized cycle key and a bounded
+  four-generation glider cycle regression. [EMPIRICAL]

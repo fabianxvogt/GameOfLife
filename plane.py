@@ -35,6 +35,35 @@ class Plane:
     def y_len(self):
         return len(self.state)
 
+    def normalized_state_key(self) -> tuple[tuple[bool, ...], ...]:
+        """Return the live-cell geometry without absolute board translation.
+
+        Dead rows and columns around the active cells are removed, making the
+        result useful for comparing the same pattern at different positions.
+        An entirely inactive plane is represented by an empty tuple.
+        """
+        active_cells = [
+            (y, x)
+            for y, row in enumerate(self.state)
+            for x, cell in enumerate(row)
+            if cell
+        ]
+        if not active_cells:
+            return ()
+
+        min_y = min(y for y, _ in active_cells)
+        max_y = max(y for y, _ in active_cells)
+        min_x = min(x for _, x in active_cells)
+        max_x = max(x for _, x in active_cells)
+
+        return tuple(
+            tuple(
+                bool(self.state[y][x]) if x < len(self.state[y]) else False
+                for x in range(min_x, max_x + 1)
+            )
+            for y in range(min_y, max_y + 1)
+        )
+
     def add_empty_row(self):
         self.state.append([False] * self.x_len())
 

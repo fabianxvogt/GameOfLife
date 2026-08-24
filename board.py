@@ -23,11 +23,25 @@ class Board(Plane):
         self.state = new_state
         return state_is_stable
 
-    def find_cycle_period(self, rule: Rule, max_generations: int = 100):
-        """Return the first repeated-state period, or None within the limit."""
+    def find_cycle_period(
+        self,
+        rule: Rule,
+        max_generations: int = 100,
+        normalize_translation: bool = False,
+    ):
+        """Return the first repeated-state period, or None within the limit.
+
+        By default, states are compared exactly, including their finite-board
+        padding. With ``normalize_translation=True``, dead outer borders are
+        removed before comparison so a translating pattern can be recognized.
+        """
         seen = {}
         for generation in range(max_generations + 1):
-            state_key = tuple(tuple(row) for row in self.state)
+            state_key = (
+                self.normalized_state_key()
+                if normalize_translation
+                else tuple(tuple(row) for row in self.state)
+            )
             if state_key in seen:
                 return generation - seen[state_key]
             seen[state_key] = generation

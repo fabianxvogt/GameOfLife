@@ -41,3 +41,5 @@ The project is tested with Python 3.9+ using `python3 -m pytest -q`.
 The creature library also includes `creatures.single.glider.GLIDER`. On a
 large enough finite board, four Conway generations translate it by one cell
 down and one cell right; the regression suite pins that bounded behavior.
+`Board.find_cycle_period` can optionally compare translation-normalized live-cell
+geometry with `normalize_translation=True` when analyzing moving patterns.
