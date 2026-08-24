@@ -1,5 +1,3 @@
-
-
 from typing import Any
 
 from plane import Plane
@@ -7,9 +5,11 @@ from rules.rule import Rule
 
 
 class Board(Plane):
-
-    def __init__(self, initial_state: Any = None, x_size=0, y_size=0, chance_for_active_cell=0) -> None:
+    def __init__(
+        self, initial_state: Any = None, x_size=0, y_size=0, chance_for_active_cell=0
+    ) -> None:
         super().__init__(initial_state, x_size, y_size, chance_for_active_cell)
+
     def insert_creature_at(self, creature, start_x, start_y):
         super().insert_plane_at(creature, start_x, start_y, False)
 
@@ -43,14 +43,16 @@ class Board(Plane):
             last_column = len(row) - 1
             for j, cell in enumerate(row):
                 neighbours = [
-                    self.state[i-1][j-1] if i > 0 and j > 0 else False,
-                    self.state[i-1][j]   if i > 0 else False,
-                    self.state[i-1][j+1] if i > 0 and j < last_column else False,
-                    self.state[i][j-1]   if j > 0 else False,
-                    self.state[i][j+1]   if j < last_column else False,
-                    self.state[i+1][j-1] if i < last_row and j > 0 else False,
-                    self.state[i+1][j]   if i < last_row else False,
-                    self.state[i+1][j+1] if i < last_row and j < last_column else False,
+                    self.state[i - 1][j - 1] if i > 0 and j > 0 else False,
+                    self.state[i - 1][j] if i > 0 else False,
+                    self.state[i - 1][j + 1] if i > 0 and j < last_column else False,
+                    self.state[i][j - 1] if j > 0 else False,
+                    self.state[i][j + 1] if j < last_column else False,
+                    self.state[i + 1][j - 1] if i < last_row and j > 0 else False,
+                    self.state[i + 1][j] if i < last_row else False,
+                    self.state[i + 1][j + 1]
+                    if i < last_row and j < last_column
+                    else False,
                 ]
                 new_row.append(rule.cell_is_alive(cell, neighbours))
             new_state.append(new_row)

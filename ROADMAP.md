@@ -40,3 +40,4 @@ own rules.
 - Test suite covering board, creature, and plane behavior.
 - 2026-08-22: added `Board.find_cycle_period` with a period-3 regression test for
   oscillators beyond the legacy period-2 stability signal.
+- 2026-08-22: fixed `CombinedCreature` coordinate-mapping iteration and added a regression test.

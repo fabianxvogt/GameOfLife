@@ -10,14 +10,19 @@ LEFT = 1
 TOP = 2
 RIGHT = 3
 
+
 class Plane:
-    def __init__(self, initial_state: Any = None, x_size = 0, y_size = 0, chance_for_active_cell = 0) -> None:
+    def __init__(
+        self, initial_state: Any = None, x_size=0, y_size=0, chance_for_active_cell=0
+    ) -> None:
         self.state: Any = None
         if initial_state:
             self.state = initial_state
         elif x_size > 0 and y_size > 0:
             if chance_for_active_cell > 0:
-                self.state = generate_random_state(x_size, y_size, chance_for_active_cell)
+                self.state = generate_random_state(
+                    x_size, y_size, chance_for_active_cell
+                )
             else:
                 self.state = generate_empty_state(x_size, y_size)
         else:
@@ -52,25 +57,31 @@ class Plane:
         return Plane(self.state)
 
     def __str__(self) -> str:
-        return '\n'.join([ ''.join(['█' if cell else ' ' for cell in row]) for row in self.state ])
+        return "\n".join(
+            ["".join(["█" if cell else " " for cell in row]) for row in self.state]
+        )
 
     def __repr__(self) -> str:
-        return '\n'.join([''.join(['X' if cell else '_' for cell in row]) for row in self.state])
+        return "\n".join(
+            ["".join(["X" if cell else "_" for cell in row]) for row in self.state]
+        )
 
-    def append_plane_bottom(self, plane: Plane, n = 1, space_between = 2):
+    def append_plane_bottom(self, plane: Plane, n=1, space_between=2):
         for _ in range(n):
             for _ in range(space_between):
                 self.add_empty_row()
             for row in plane.state:
                 self.add_row(row)
 
-    def append_plane(self, plane: Plane, append_side = BOTTOM, n = 1, space_between = 2):
+    def append_plane(self, plane: Plane, append_side=BOTTOM, n=1, space_between=2):
         self.rotate_by(append_side)
         plane.rotate_by(append_side)
         self.append_plane_bottom(plane, n, space_between)
         self.rotate_by(0 if append_side == BOTTOM else 4 - append_side)
 
-    def insert_plane_at(self, plane: Plane, start_x, start_y, allow_plane_extension = False):
+    def insert_plane_at(
+        self, plane: Plane, start_x, start_y, allow_plane_extension=False
+    ):
         source_height = len(plane.state)
         source_width = max((len(row) for row in plane.state), default=0)
         if source_height == 0 or source_width == 0:
@@ -101,7 +112,9 @@ class Plane:
 
         for y, row in enumerate(plane.state):
             for x, cell in enumerate(row):
-                expanded_state[y + start_y + top_padding][x + start_x + left_padding] = cell
+                expanded_state[y + start_y + top_padding][
+                    x + start_x + left_padding
+                ] = cell
 
         self.state = expanded_state
 
@@ -112,12 +125,14 @@ class Plane:
 
         self.insert_plane_at(plane, 0, 0)
         self.insert_plane_at(plane_b, self.x_len() - plane_b.x_len(), 0)
-        self.insert_plane_at(plane_c, self.x_len() - plane_c.x_len(), self.y_len() - plane_c.y_len())
+        self.insert_plane_at(
+            plane_c, self.x_len() - plane_c.x_len(), self.y_len() - plane_c.y_len()
+        )
         self.insert_plane_at(plane_d, 0, self.y_len() - plane_d.y_len())
 
     def add_empty_border(self):
         empty_row = tuple([False] * self.x_len())
-        border_state = [empty_row] +  self.state + [empty_row]
+        border_state = [empty_row] + self.state + [empty_row]
         for i, row in enumerate(border_state):
             border_state[i] = tuple([False] + list(row) + [False])
         self.state = border_state
@@ -139,7 +154,7 @@ class Plane:
                 collapsed_state.append(row)
         self.state = collapsed_state
 
-    def get_variation(self, rule, variation_steps = 0) -> Plane:
+    def get_variation(self, rule, variation_steps=0) -> Plane:
         if variation_steps == 0:
             return self
         variation = self.copy()
@@ -163,19 +178,19 @@ class Plane:
             new_row = []
             for j, cell in enumerate(row):
                 neighbours = [
-                    self.state[i-1][j-1] if i > 0 and j > 0 else False,
-                    self.state[i-1][j]   if i > 0 else False,
-                    self.state[i-1][j+1] if i > 0 and j < len(row) - 1 else False,
-                    self.state[i][j-1]   if j > 0 else False,
-                    self.state[i][j+1]   if j < len(row) - 1 else False,
-                    self.state[i+1][j-1] if i < len(self.state) - 1 and j > 0 else False,
-                    self.state[i+1][j]   if i < len(self.state) - 1 else False,
-                    self.state[i+1][j+1] if i < len(self.state) - 1 and j < len(row) - 1 else False,
+                    self.state[i - 1][j - 1] if i > 0 and j > 0 else False,
+                    self.state[i - 1][j] if i > 0 else False,
+                    self.state[i - 1][j + 1] if i > 0 and j < len(row) - 1 else False,
+                    self.state[i][j - 1] if j > 0 else False,
+                    self.state[i][j + 1] if j < len(row) - 1 else False,
+                    self.state[i + 1][j - 1]
+                    if i < len(self.state) - 1 and j > 0
+                    else False,
+                    self.state[i + 1][j] if i < len(self.state) - 1 else False,
+                    self.state[i + 1][j + 1]
+                    if i < len(self.state) - 1 and j < len(row) - 1
+                    else False,
                 ]
                 new_row.append(rule.cell_is_alive(cell, neighbours))
             new_state.append(new_row)
         return new_state
-
-
-
-

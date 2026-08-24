@@ -85,6 +85,31 @@ class BoardTest(unittest.TestCase):
 
         self.assertEqual(board.find_cycle_period(Rule(), max_generations=4), 3)
 
+    def test_find_cycle_period_detects_padded_pulsar(self):
+        pulsar = [
+            [cell == "X" for cell in row]
+            for row in (
+                "...............",
+                "...XXX...XXX...",
+                "...............",
+                ".X....X.X....X.",
+                ".X....X.X....X.",
+                ".X....X.X....X.",
+                "...XXX...XXX...",
+                "...............",
+                "...XXX...XXX...",
+                ".X....X.X....X.",
+                ".X....X.X....X.",
+                ".X....X.X....X.",
+                "...............",
+                "...XXX...XXX...",
+                "...............",
+            )
+        ]
+        board = Board(initial_state=pulsar)
+
+        self.assertEqual(board.find_cycle_period(ConwaysRule(), max_generations=3), 3)
+
     def test_apply_rule_computes_the_next_state_once(self):
         board = Board(initial_state=[[False]])
         calls = []
