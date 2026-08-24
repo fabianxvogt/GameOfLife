@@ -18,7 +18,7 @@ own rules.
 - Simple interactive mode: step/pause/reset controls from the console.
 - Pattern file format: load/save creature placements instead of code-only definitions.
   (Canonical creature save/load round-trip is now covered; board placements remain open.)
-- CI: run the test suite on push (tiny workflow).
+- CI: run the test suite on push (tiny workflow). (Done 2026-08-25.)
 - Decide publishability under the portfolio checklist (license, README polish).
 
 ## Later
@@ -50,3 +50,5 @@ own rules.
   regressions. [EMPIRICAL]
 - 2026-08-25: added canonical creature-pattern saving with a file round-trip
   regression using the existing `_`/`X` loader format. [EMPIRICAL]
+- 2026-08-25: added a minimal GitHub Actions workflow running the dependency-light
+  pytest suite on pushes and pull requests. [EMPIRICAL]
