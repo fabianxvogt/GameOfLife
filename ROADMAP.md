@@ -10,9 +10,8 @@ own rules.
 1. [x] Write a concrete runnable blinker quickstart with expected console output.
 2. Verify the test suite green after this week's bounds/stability fixes
    (`pytest tests/ -v`) and note the Python version in the README.
-3. Add 2–3 more classic creatures (e.g. glider gun, lightweight spaceship) with tests,
-   to make the creature library feel real. (Glider and LWSS are now included;
-   a glider gun or another classic remains open.)
+3. [x] Add 2–3 more classic creatures (glider, lightweight spaceship, and Gosper
+   glider gun) with bounded tests. (Done 2026-08-25.)
 
 ## Next
 
@@ -59,3 +58,5 @@ own rules.
 - 2026-08-25: added the canonical nine-cell lightweight spaceship (LWSS) and a
   four-generation, two-cell translation regression on a padded finite board.
   [EMPIRICAL]
+- 2026-08-25: added the canonical 36×9 Gosper glider gun fixture and a
+  30-generation finite-board core-return regression. [EMPIRICAL]

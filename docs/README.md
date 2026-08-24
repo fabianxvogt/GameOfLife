@@ -21,6 +21,9 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   session without adding runtime dependencies.
 - `creatures.single.lwss.LWSS` provides the canonical nine-cell lightweight
   spaceship pattern used by the bounded translation regression.
+- `creatures.single.gosper_glider_gun.GOSPER_GLIDER_GUN` provides the canonical
+  36×9, 36-cell Gosper fixture used by the bounded 30-generation core-return
+  regression.
 
 Classification: INCREMENTAL — empirical instrument and regression test; no claim about
 pattern behavior beyond the bounded test.

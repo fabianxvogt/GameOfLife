@@ -38,11 +38,13 @@ ___
 
 The project is tested with Python 3.9+ using `python3 -m pytest -q`.
 
-The creature library includes `creatures.single.glider.GLIDER` and the
-canonical nine-cell `creatures.single.lwss.LWSS`. On a large enough finite
+The creature library includes `creatures.single.glider.GLIDER`, the canonical
+nine-cell `creatures.single.lwss.LWSS`, and the 36-cell
+`creatures.single.gosper_glider_gun.GOSPER_GLIDER_GUN`. On a large enough finite
 board, four Conway generations translate the glider by one cell down and one
-cell right, while four generations translate the LWSS two cells right; the
-regression suite pins both bounded behaviors.
+cell right, while four generations translate the LWSS two cells right. The
+Gosper fixture's 36×9 core returns after 30 generations; the regression suite
+pins these bounded behaviors.
 `Board.find_cycle_period` can optionally compare translation-normalized live-cell
 geometry with `normalize_translation=True` when analyzing moving patterns.
 The rule interface also includes `rules.highlife_rule.HighLifeRule`, implementing

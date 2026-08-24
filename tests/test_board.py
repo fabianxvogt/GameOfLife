@@ -2,6 +2,7 @@ import unittest
 
 from board import Board
 from creatures.single.glider import GLIDER
+from creatures.single.gosper_glider_gun import GOSPER_GLIDER_GUN
 from creatures.single.lwss import LWSS
 from rules.conways_rule import ConwaysRule
 from rules.rule import Rule
@@ -144,6 +145,17 @@ class BoardTest(unittest.TestCase):
             live_cells,
             {(5, 5), (5, 8), (6, 9), (7, 5), (7, 9), (8, 6), (8, 7), (8, 8), (8, 9)},
         )
+
+    def test_gosper_glider_gun_core_returns_after_thirty_generations(self):
+        board = Board(initial_state=[[False] * 140 for _ in range(100)])
+        board.insert_creature_at(GOSPER_GLIDER_GUN, 10, 10)
+
+        for _ in range(30):
+            board.apply_rule(ConwaysRule())
+
+        core = [row[10:46] for row in board.state[10:19]]
+        self.assertEqual(core, GOSPER_GLIDER_GUN.state)
+        self.assertEqual(sum(map(sum, board.state)), 41)
 
     def test_normalized_cycle_period_detects_translating_glider(self):
         board = Board(initial_state=[[False] * 8 for _ in range(8)])
