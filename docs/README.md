@@ -28,6 +28,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
 - `creatures.single.gosper_glider_gun.GOSPER_GLIDER_GUN` provides the canonical
   36×9, 36-cell Gosper fixture used by the bounded 30-generation core-return
   regression.
+- `Plane.rotate()` remains compatible with the documented Python 3.9+ runtime;
+  its regression avoids version-specific `zip` keyword arguments.
 
 Classification: INCREMENTAL — empirical instrument and regression test; no claim about
 pattern behavior beyond the bounded test.

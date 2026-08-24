@@ -4,6 +4,16 @@ from plane import Plane
 
 
 class PlaneInsertTest(unittest.TestCase):
+    def test_rotate_uses_python39_compatible_zip_behavior(self):
+        plane = Plane(initial_state=[[True, False, False], [False, True, False]])
+
+        plane.rotate()
+
+        self.assertEqual(
+            plane.state,
+            [(False, True), (True, False), (False, False)],
+        )
+
     def test_normalized_state_key_removes_dead_padding(self):
         plane = Plane(
             initial_state=[

@@ -65,3 +65,5 @@ own rules.
   30-generation finite-board core-return regression. [EMPIRICAL]
 - 2026-08-25: added bounded non-negative `cli.py --x`/`--y` placement for
   loaded patterns, with a finite board sized to contain the placement. [EMPIRICAL]
+- 2026-08-25: replaced the Python 3.10-only `zip(strict=False)` rotation call
+  with the Python 3.9-compatible default and added a rotation regression. [EMPIRICAL]

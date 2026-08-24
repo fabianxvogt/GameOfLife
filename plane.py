@@ -79,7 +79,7 @@ class Plane:
         return self
 
     def rotate(self):
-        self.state = list(zip(*self.state[::-1], strict=False))
+        self.state = list(zip(*self.state[::-1]))
         return self
 
     def copy(self):
