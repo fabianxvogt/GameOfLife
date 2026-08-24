@@ -11,7 +11,7 @@ own rules.
 2. Verify the test suite green after this week's bounds/stability fixes
    (`pytest tests/ -v`) and note the Python version in the README.
 3. Add 2–3 more classic creatures (e.g. glider gun, lightweight spaceship) with tests,
-   to make the creature library feel real.
+   to make the creature library feel real. (One glider is now included.)
 
 ## Next
 
@@ -41,3 +41,5 @@ own rules.
   oscillators beyond the legacy period-2 stability signal.
 - 2026-08-22: fixed `CombinedCreature` coordinate-mapping iteration and added a regression test.
 - 2026-08-24: added and verified a runnable blinker quickstart in the README. [EMPIRICAL]
+- 2026-08-25: added a reusable glider creature and a four-generation translation
+  regression on a padded finite board. [EMPIRICAL]

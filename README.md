@@ -37,3 +37,7 @@ ___
 ```
 
 The project is tested with Python 3.9+ using `python3 -m pytest -q`.
+
+The creature library also includes `creatures.single.glider.GLIDER`. On a
+large enough finite board, four Conway generations translate it by one cell
+down and one cell right; the regression suite pins that bounded behavior.

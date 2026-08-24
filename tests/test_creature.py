@@ -2,6 +2,7 @@ import unittest
 
 from creatures.combinations.combined_creature import CombinedCreature
 from creatures.creature import Creature
+from creatures.single.glider import GLIDER
 
 
 class CreatureTest(unittest.TestCase):
@@ -19,6 +20,9 @@ class CreatureTest(unittest.TestCase):
         combined = CombinedCreature({(1, 2): Creature([[True]])})
 
         self.assertTrue(combined.state[2][1])
+
+    def test_glider_pattern_has_five_live_cells(self):
+        self.assertEqual(sum(map(sum, GLIDER.state)), 5)
 
 
 if __name__ == "__main__":

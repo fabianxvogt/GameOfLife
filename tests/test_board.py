@@ -1,6 +1,7 @@
 import unittest
 
 from board import Board
+from creatures.single.glider import GLIDER
 from rules.conways_rule import ConwaysRule
 from rules.rule import Rule
 
@@ -109,6 +110,21 @@ class BoardTest(unittest.TestCase):
         board = Board(initial_state=pulsar)
 
         self.assertEqual(board.find_cycle_period(ConwaysRule(), max_generations=3), 3)
+
+    def test_glider_translates_one_cell_after_four_generations(self):
+        board = Board(initial_state=[[False] * 8 for _ in range(8)])
+        board.insert_creature_at(GLIDER, 1, 1)
+
+        for _ in range(4):
+            board.apply_rule(ConwaysRule())
+
+        live_cells = {
+            (y, x)
+            for y, row in enumerate(board.state)
+            for x, cell in enumerate(row)
+            if cell
+        }
+        self.assertEqual(live_cells, {(2, 3), (3, 4), (4, 2), (4, 3), (4, 4)})
 
     def test_apply_rule_computes_the_next_state_once(self):
         board = Board(initial_state=[[False]])
