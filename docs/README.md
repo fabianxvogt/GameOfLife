@@ -24,6 +24,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   files that round-trip through `CreatureLoader.load_creature_from_file(...)`.
 - `CreatureLoader.load_creature_from_file(...)` rejects empty or zero-width
   patterns instead of passing an empty board to the CLI.
+- `CreatureLoader.load_creature_from_file(...)` accepts an optional UTF-8 BOM
+  before the first pattern row, preserving geometry for editor-produced files.
 - `cli.py --x` and `--y` place a loaded pattern at a non-negative offset on a
   finite board sized just large enough to contain it.
 - `cli.py` provides bounded batch stepping and a prompt-driven step/reset/quit

@@ -45,6 +45,17 @@ class CreatureTest(unittest.TestCase):
 
         self.assertEqual(loaded.state, GLIDER.state)
 
+    def test_load_creature_from_file_ignores_utf8_bom(self):
+        with TemporaryDirectory() as temporary_directory:
+            fixture_path = Path(temporary_directory) / "glider-with-bom.txt"
+            fixture_path.write_text(
+                "\ufeff_X_\n__X\nXXX\n", encoding="utf-8"
+            )
+
+            loaded = CreatureLoader.load_creature_from_file(fixture_path)
+
+        self.assertEqual(loaded.state, GLIDER.state)
+
     def test_load_creature_from_file_rejects_empty_pattern(self):
         with TemporaryDirectory() as temporary_directory:
             fixture_path = Path(temporary_directory) / "empty.txt"

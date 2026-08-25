@@ -75,3 +75,5 @@ own rules.
   interactive entry point has a dependency-free test seam. [EMPIRICAL]
 - 2026-08-25: rejected empty or zero-width pattern files before they can create
   a silently empty CLI board, with a loader regression. [EMPIRICAL]
+- 2026-08-25: made pattern-file loading ignore an optional UTF-8 BOM, with a
+  geometry-preserving loader regression. [EMPIRICAL]

@@ -33,7 +33,7 @@ class CreatureLoader:
 
     @staticmethod
     def load_creature_from_file(filename: str) -> Creature:
-        with open(filename) as creature_file:
+        with open(filename, encoding="utf-8-sig") as creature_file:
             creature_str = creature_file.read().rstrip("\r\n")
         return CreatureLoader.load_creature_from_str(creature_str)
 
