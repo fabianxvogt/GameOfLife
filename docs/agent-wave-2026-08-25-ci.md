@@ -3,9 +3,10 @@
 ## Change
 
 Added `.github/workflows/tests.yml`, which runs on `push` and `pull_request`.
-The workflow uses Ubuntu, Python 3.11, installs only `pytest`, and runs the
-existing dependency-light command `python -m pytest -q`. It requests read-only
-repository contents permission.
+The initial workflow used Ubuntu and Python 3.11, installed only `pytest`, and
+ran the existing dependency-light command `python -m pytest -q`. It requested
+read-only repository contents permission. The current workflow keeps those
+properties and tests Python 3.9 and 3.11 through its version matrix.
 
 ## Verification
 
