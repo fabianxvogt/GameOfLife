@@ -69,6 +69,11 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   uses independent rotations for bounded asymmetric corner placement.
 - [Corner insertion contract](agent-wave-2026-08-25-corner-insertion-contract.md)
   records the empty-source failure and finite ownership/coordinate evidence.
+- `Plane.insert_plane_in_all_corners` preflights all rotated source geometries,
+  so a corner insertion that cannot fit every rotation fails without a partial
+  destination mutation.
+- [Corner insertion atomicity](agent-wave-2026-08-25-corner-insertion-atomicity.md)
+  records the bounded partial-fit regression and no-mutation evidence.
 - Unequal-width plane composition pads dead cells to a common rectangular
   extent during side-specific assembly, preserving all source cells.
 - [Unequal composition geometry](agent-wave-2026-08-25-unequal-composition-geometry.md)

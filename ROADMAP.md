@@ -115,3 +115,6 @@ own rules.
 - 2026-08-25: made `Plane.insert_plane_in_all_corners` treat an empty source as
   a no-op, with bounded asymmetric-corner coordinate and source-ownership
   regressions. [EMPIRICAL]
+- 2026-08-25: made all-corner insertion preflight rotated source geometry, so a
+  source that only partially fits fails without leaving the first corner
+  inserted. [EMPIRICAL]

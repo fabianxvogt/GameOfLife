@@ -294,6 +294,15 @@ class Plane:
         plane_c = plane.copy().rotate_by(2)
         plane_d = plane.copy().rotate_by(3)
 
+        destination_height = len(self.state)
+        destination_width = max((len(row) for row in self.state), default=0)
+        if any(
+            rotated.y_len() > destination_height
+            or rotated.x_len() > destination_width
+            for rotated in (plane, plane_b, plane_c, plane_d)
+        ):
+            raise ValueError("Out of bounds!")
+
         self.insert_plane_at(plane, 0, 0)
         self.insert_plane_at(plane_b, self.x_len() - plane_b.x_len(), 0)
         self.insert_plane_at(

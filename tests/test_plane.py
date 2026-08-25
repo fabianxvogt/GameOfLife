@@ -553,6 +553,18 @@ class PlaneInsertTest(unittest.TestCase):
         destination.state[0][0] = False
         self.assertEqual(source.state, source_state)
 
+    def test_insert_plane_in_all_corners_rejects_partial_fit_without_mutation(self):
+        destination_state = [[False, False] for _ in range(3)]
+        source_state = [[True, False], [False, True], [True, True]]
+        destination = Plane(initial_state=[row[:] for row in destination_state])
+        source = Plane(initial_state=[row[:] for row in source_state])
+
+        with self.assertRaisesRegex(ValueError, "Out of bounds!"):
+            destination.insert_plane_in_all_corners(source)
+
+        self.assertEqual(destination.state, destination_state)
+        self.assertEqual(source.state, source_state)
+
 
 if __name__ == "__main__":
     unittest.main()
