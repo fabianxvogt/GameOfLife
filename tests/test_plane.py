@@ -29,6 +29,40 @@ class PlaneInsertTest(unittest.TestCase):
             [(False, True), (True, False), (False, False)],
         )
 
+    def test_empty_plane_copy_rotate_preserves_zero_dimensions(self):
+        original = Plane()
+        copied = original.copy()
+
+        original.rotate()
+        copied.rotate_by(4)
+
+        for plane in (original, copied):
+            with self.subTest(plane=plane):
+                self.assertEqual(plane.state, [])
+                self.assertEqual((plane.x_len(), plane.y_len()), (0, 0))
+
+        self.assertIsNot(original.state, copied.state)
+
+    def test_copy_after_rotation_keeps_rows_mutable(self):
+        original = Plane(initial_state=[[True, False], [False, True]])
+        original.rotate()
+
+        copied = original.copy()
+        copied.add_empty_col()
+
+        self.assertEqual(
+            copied.state,
+            [[False, True, False], [True, False, False]],
+        )
+        self.assertEqual(original.state, [(False, True), (True, False)])
+
+    def test_rotate_by_full_turn_preserves_minimal_plane(self):
+        plane = Plane(initial_state=[[True]])
+
+        self.assertIs(plane.rotate_by(4), plane)
+        self.assertEqual(plane.state, [(True,)])
+        self.assertEqual((plane.x_len(), plane.y_len()), (1, 1))
+
     def test_normalized_state_key_removes_dead_padding(self):
         plane = Plane(
             initial_state=[

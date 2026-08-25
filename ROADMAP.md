@@ -129,3 +129,6 @@ own rules.
 - 2026-08-25: pinned rejection of boolean `n` and `space_between` composition
   controls before empty-destination and one-cell bottom composition can
   mutate state. [EMPIRICAL]
+- 2026-08-25: made copies of rotated/composed planes remain independently
+  mutable, and pinned empty-plane dimensions plus the minimal `1×1` full-turn
+  transform boundary. [EMPIRICAL]

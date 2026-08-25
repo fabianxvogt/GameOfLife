@@ -41,6 +41,9 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   copied row cannot mutate the source plane.
 - [Plane copy contract](agent-wave-2026-08-25-plane-copy-contract.md) records
   the aliasing regression and its focused test.
+- `Plane.copy()` normalizes rows copied from rotated or composed planes to
+  mutable lists; [the empty-copy/rotation boundary note](agent-wave-2026-08-25-empty-copy-rotate.md)
+  records the empty-plane and `1×1` transform regressions.
 - `Plane.append_plane_bottom` copies source row containers, so composing a
   plane does not share mutable rows with its source.
 - [Composition row isolation](agent-wave-2026-08-25-composition-row-isolation.md)

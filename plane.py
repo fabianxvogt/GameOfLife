@@ -108,7 +108,8 @@ class Plane:
         return self
 
     def copy(self):
-        return Plane(copy.deepcopy(self.state))
+        copied_state = copy.deepcopy(self.state)
+        return Plane([list(row) for row in copied_state])
 
     def __str__(self) -> str:
         return "\n".join(
