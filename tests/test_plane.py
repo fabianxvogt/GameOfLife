@@ -540,6 +540,17 @@ class PlaneInsertTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             destination.insert_plane_at(source, 1, 2)
 
+    def test_insert_plane_accepts_exact_bottom_right_fit_without_extension(self):
+        destination = Plane(initial_state=[[False, False], [False, False]])
+        source = Plane(initial_state=[[True]])
+
+        destination.insert_plane_at(source, 1, 1)
+
+        self.assertEqual(
+            destination.state,
+            [[False, False], [False, True]],
+        )
+
     def test_insert_plane_rejects_invalid_coordinate_controls_before_mutation(self):
         source_state = [[True, False], [False, True]]
         destination_state = [[False, False], [False, False]]

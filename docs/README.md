@@ -73,6 +73,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   non-boolean extension flags before placement can alter either plane.
 - [Insertion-control contract](agent-wave-2026-08-25-insertion-control-contract.md)
   records the invalid-control regression and no-mutation evidence.
+- Exact-fit insertion is valid when a source's right and bottom edges land on
+  the destination boundary without extension; [the exact insertion boundary
+  note](agent-wave-2026-08-25-exact-insertion-boundary.md) records the minimal
+  `2×2`/one-cell regression.
 - `Plane.insert_plane_in_all_corners` treats an empty source as a no-op and
   uses independent rotations for bounded asymmetric corner placement.
 - [Corner insertion contract](agent-wave-2026-08-25-corner-insertion-contract.md)
