@@ -61,6 +61,17 @@ class PlaneInsertTest(unittest.TestCase):
         self.assertEqual(second.state, [])
         self.assertIsNot(first.state, second.state)
 
+    def test_empty_plane_reports_zero_dimensions_before_composition(self):
+        destination = Plane()
+
+        self.assertEqual((destination.x_len(), destination.y_len()), (0, 0))
+
+        destination.append_plane(
+            Plane(initial_state=[[True]]), append_side=BOTTOM, space_between=0
+        )
+
+        self.assertEqual((destination.x_len(), destination.y_len()), (1, 1))
+
     def test_append_plane_bottom_copies_source_rows(self):
         destination = Plane(initial_state=[[False, False]])
         source = Plane(initial_state=[[True, False], [False, True]])

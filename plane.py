@@ -55,7 +55,7 @@ class Plane:
             raise TypeError("initial_state cells must be bool")
 
     def x_len(self):
-        return len(self.state[0])
+        return len(self.state[0]) if self.state else 0
 
     def y_len(self):
         return len(self.state)

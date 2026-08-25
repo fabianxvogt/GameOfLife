@@ -118,3 +118,6 @@ own rules.
 - 2026-08-25: made all-corner insertion preflight rotated source geometry, so a
   source that only partially fits fails without leaving the first corner
   inserted. [EMPIRICAL]
+- 2026-08-25: made empty `Plane()` dimensions total by returning zero width
+  alongside zero height, with a minimal-destination composition regression.
+  [EMPIRICAL]

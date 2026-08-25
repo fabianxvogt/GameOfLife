@@ -57,6 +57,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   composition snapshots the source before rotating the destination.
 - [Empty and side-specific composition](agent-wave-2026-08-25-empty-side-composition.md)
   records the bounded geometry and ownership regressions.
+- `Plane.x_len()` and `Plane.y_len()` both report `0` for the empty-plane
+  sentinel, so an empty composition destination can be inspected safely.
+- [Empty-plane dimension boundary](agent-wave-2026-08-25-empty-plane-dimensions.md)
+  records the minimal-destination regression and bounded evidence.
 - [Composition control contract](agent-wave-2026-08-25-composition-control-contract.md)
   records pre-mutation validation for non-integer append controls.
 - [Append-side and non-positive controls](agent-wave-2026-08-25-append-side-controls.md)
