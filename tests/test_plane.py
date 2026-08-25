@@ -1,6 +1,6 @@
 import unittest
 
-from plane import Plane
+from plane import Plane, RIGHT
 
 
 class PlaneInsertTest(unittest.TestCase):
@@ -66,6 +66,25 @@ class PlaneInsertTest(unittest.TestCase):
         self.assertEqual(source.state, [[False, False], [False, True]])
         self.assertIsNot(destination.state[1], source.state[0])
         self.assertIsNot(destination.state[2], source.state[1])
+
+    def test_append_plane_preserves_source_geometry_when_rotating_for_side(self):
+        destination = Plane(initial_state=[[False, False], [False, False]])
+        source = Plane(initial_state=[[True, False, False], [False, True, False]])
+
+        destination.append_plane(source, append_side=RIGHT, space_between=0)
+
+        self.assertEqual(
+            source.state,
+            [[True, False, False], [False, True, False]],
+        )
+        self.assertEqual((source.x_len(), source.y_len()), (3, 2))
+        self.assertEqual(
+            destination.state,
+            [
+                (True, False, False, False, False),
+                (False, True, False, False, False),
+            ],
+        )
 
     def test_insert_plane_rejects_negative_coordinates_without_extension(self):
         destination = Plane(x_size=2, y_size=2)

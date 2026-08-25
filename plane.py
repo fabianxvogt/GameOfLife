@@ -129,8 +129,8 @@ class Plane:
 
     def append_plane(self, plane: Plane, append_side=BOTTOM, n=1, space_between=2):
         self.rotate_by(append_side)
-        plane.rotate_by(append_side)
-        self.append_plane_bottom(plane, n, space_between)
+        rotated_plane = plane.copy().rotate_by(append_side)
+        self.append_plane_bottom(rotated_plane, n, space_between)
         self.rotate_by(0 if append_side == BOTTOM else 4 - append_side)
 
     def insert_plane_at(

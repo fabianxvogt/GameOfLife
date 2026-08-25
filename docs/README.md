@@ -45,6 +45,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   plane does not share mutable rows with its source.
 - [Composition row isolation](agent-wave-2026-08-25-composition-row-isolation.md)
   records the bidirectional mutation regression and bounded evidence.
+- `Plane.append_plane` rotates a source copy for side-specific composition, so
+  using a plane as an input does not change its orientation or dimensions.
+- [Composition source geometry](agent-wave-2026-08-25-composition-source-geometry.md)
+  records the source-dimension regression and bounded evidence.
 - `CombinedCreature` computes one global bounding box before inserting components,
   so multiple negative coordinates preserve their logical spacing instead of
   being shifted relative to earlier insertions.
