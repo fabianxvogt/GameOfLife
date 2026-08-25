@@ -88,6 +88,23 @@ class BoardTest(unittest.TestCase):
 
         self.assertEqual(board.find_cycle_period(Rule(), max_generations=4), 3)
 
+    def test_find_cycle_period_rejects_negative_generation_budget_without_mutation(self):
+        board = Board(initial_state=[[True]])
+        calls = 0
+
+        def next_state(rule):
+            nonlocal calls
+            calls += 1
+            return [[False]]
+
+        board.get_new_state = next_state
+
+        with self.assertRaisesRegex(ValueError, "max_generations must be non-negative"):
+            board.find_cycle_period(Rule(), max_generations=-1)
+
+        self.assertEqual(board.state, [[True]])
+        self.assertEqual(calls, 0)
+
     def test_find_cycle_period_detects_padded_pulsar(self):
         pulsar = [
             [cell == "X" for cell in row]

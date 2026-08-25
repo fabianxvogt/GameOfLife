@@ -34,7 +34,12 @@ class Board(Plane):
         By default, states are compared exactly, including their finite-board
         padding. With ``normalize_translation=True``, dead outer borders are
         removed before comparison so a translating pattern can be recognized.
+
+        ``max_generations`` is an inclusive, non-negative transition budget.
         """
+        if max_generations < 0:
+            raise ValueError("max_generations must be non-negative")
+
         seen = {}
         for generation in range(max_generations + 1):
             state_key = (

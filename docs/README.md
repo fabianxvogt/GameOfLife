@@ -14,10 +14,13 @@ Never store credentials, private data, generated output, logs, datasets, or buil
 ## Verified instruments
 
 - `Board.find_cycle_period` detects the first repeated board state within a bounded
-  generation budget; the period-3 regression test lives in `tests/test_board.py`.
+  non-negative generation budget; a negative budget is rejected before the board
+  is mutated. The period-3 regression test lives in `tests/test_board.py`.
 - `Board.find_cycle_period(..., normalize_translation=True)` compares live-cell
   geometry after removing dead outer padding, so bounded translating-pattern checks
   can be explicit without changing the default exact-state behavior.
+- [Cycle budget contract](agent-wave-2026-08-25-cycle-budget-contract.md) records
+  the negative-budget validation and its no-mutation regression.
 - `rules.highlife_rule.HighLifeRule` implements HighLife's B36/S23 transition table
   through the existing `Rule.cell_is_alive` interface.
 - `CreatureLoader.save_creature_to_file(...)` writes canonical `_`/`X` pattern

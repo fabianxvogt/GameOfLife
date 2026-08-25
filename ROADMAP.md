@@ -83,3 +83,6 @@ own rules.
 - 2026-08-25: added a rectangular boolean-state contract for `Plane` and
   `Creature` constructors, preventing text states from being silently treated
   as board rows. [EMPIRICAL]
+- 2026-08-25: made `Board.find_cycle_period` reject negative generation budgets
+  before mutating the board, with a direct-API regression aligned with the CLI's
+  non-negative bounded controls. [EMPIRICAL]
