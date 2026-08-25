@@ -45,6 +45,14 @@ class CreatureTest(unittest.TestCase):
 
         self.assertEqual(loaded.state, GLIDER.state)
 
+    def test_load_creature_from_file_rejects_empty_pattern(self):
+        with TemporaryDirectory() as temporary_directory:
+            fixture_path = Path(temporary_directory) / "empty.txt"
+            fixture_path.write_text("\n", encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "Pattern rows cannot be empty"):
+                CreatureLoader.load_creature_from_file(fixture_path)
+
     def test_save_and_reload_round_trips_creature_pattern(self):
         with TemporaryDirectory() as temporary_directory:
             pattern_path = Path(temporary_directory) / "glider.txt"

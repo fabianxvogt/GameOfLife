@@ -17,12 +17,13 @@ class CreatureLoader:
     @staticmethod
     def load_creature_from_str(creature_str: str) -> Creature:
         rows = creature_str.split('\n')
-        row_len = 0
+        row_len = len(rows[0])
+        if row_len == 0:
+            raise ValueError('Creature load error: Pattern rows cannot be empty!')
+
         creature_state = []
-        for i, row in enumerate(rows):
-            if i == 0:
-                row_len = len(row)
-            elif len(row) != row_len:
+        for row in rows:
+            if len(row) != row_len:
                 raise ValueError('Creature load error: Rows lengths are not identical!')
             creature_row = []
             for cell in row:

@@ -73,3 +73,5 @@ own rules.
   with the Python 3.9-compatible default and added a rotation regression. [EMPIRICAL]
 - 2026-08-25: exposed optional `cli.main(...)` input/output callbacks so the
   interactive entry point has a dependency-free test seam. [EMPIRICAL]
+- 2026-08-25: rejected empty or zero-width pattern files before they can create
+  a silently empty CLI board, with a loader regression. [EMPIRICAL]

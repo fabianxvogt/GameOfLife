@@ -17,6 +17,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   through the existing `Rule.cell_is_alive` interface.
 - `CreatureLoader.save_creature_to_file(...)` writes canonical `_`/`X` pattern
   files that round-trip through `CreatureLoader.load_creature_from_file(...)`.
+- `CreatureLoader.load_creature_from_file(...)` rejects empty or zero-width
+  patterns instead of passing an empty board to the CLI.
 - `cli.py --x` and `--y` place a loaded pattern at a non-negative offset on a
   finite board sized just large enough to contain it.
 - `cli.py` provides bounded batch stepping and a prompt-driven step/reset/quit

@@ -60,6 +60,8 @@ Creature patterns can be saved and loaded with
 `CreatureLoader.save_creature_to_file(...)` and
 `CreatureLoader.load_creature_from_file(...)`. The canonical text format uses
 `X` for live cells and `_` for dead cells, with one row per line.
+Patterns must contain at least one non-empty, equally sized row; empty pattern
+files are rejected.
 
 ## Command-line stepping
 
