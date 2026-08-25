@@ -109,3 +109,6 @@ own rules.
 - 2026-08-25: rejected invalid `append_side` values before composition can
   rotate or mutate the destination, with bounded evidence for non-positive
   repetition and spacing controls. [EMPIRICAL]
+- 2026-08-25: rejected boolean/non-integer `Plane.insert_plane_at` coordinates
+  and non-boolean extension flags before placement can mutate either plane.
+  [EMPIRICAL]

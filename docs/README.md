@@ -61,6 +61,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   records pre-mutation validation for non-integer append controls.
 - [Append-side and non-positive controls](agent-wave-2026-08-25-append-side-controls.md)
   records the public side-domain validation and bounded no-gap behavior.
+- `Plane.insert_plane_at` rejects boolean/non-integer coordinates and
+  non-boolean extension flags before placement can alter either plane.
+- [Insertion-control contract](agent-wave-2026-08-25-insertion-control-contract.md)
+  records the invalid-control regression and no-mutation evidence.
 - Unequal-width plane composition pads dead cells to a common rectangular
   extent during side-specific assembly, preserving all source cells.
 - [Unequal composition geometry](agent-wave-2026-08-25-unequal-composition-geometry.md)

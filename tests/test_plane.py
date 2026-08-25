@@ -485,6 +485,40 @@ class PlaneInsertTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             destination.insert_plane_at(source, 1, 2)
 
+    def test_insert_plane_rejects_invalid_coordinate_controls_before_mutation(self):
+        source_state = [[True, False], [False, True]]
+        destination_state = [[False, False], [False, False]]
+        invalid_controls = (
+            (True, 0, False, "start_x must be an integer"),
+            (0, False, False, "start_y must be an integer"),
+            (1.5, 0, False, "start_x must be an integer"),
+            (0, 1.5, False, "start_y must be an integer"),
+            (0, 0, 0, "allow_plane_extension must be a boolean"),
+            (0, 0, "yes", "allow_plane_extension must be a boolean"),
+        )
+
+        for start_x, start_y, allow_extension, message in invalid_controls:
+            with self.subTest(
+                start_x=start_x,
+                start_y=start_y,
+                allow_extension=allow_extension,
+            ):
+                destination = Plane(
+                    initial_state=[row[:] for row in destination_state]
+                )
+                source = Plane(initial_state=[row[:] for row in source_state])
+
+                with self.assertRaisesRegex(TypeError, message):
+                    destination.insert_plane_at(
+                        source,
+                        start_x,
+                        start_y,
+                        allow_plane_extension=allow_extension,
+                    )
+
+                self.assertEqual(destination.state, destination_state)
+                self.assertEqual(source.state, source_state)
+
 
 if __name__ == "__main__":
     unittest.main()

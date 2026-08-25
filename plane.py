@@ -240,6 +240,11 @@ class Plane:
     def insert_plane_at(
         self, plane: Plane, start_x, start_y, allow_plane_extension=False
     ):
+        self._validate_insertion_coordinate(start_x, "start_x")
+        self._validate_insertion_coordinate(start_y, "start_y")
+        if not isinstance(allow_plane_extension, bool):
+            raise TypeError("allow_plane_extension must be a boolean")
+
         source_height = len(plane.state)
         source_width = max((len(row) for row in plane.state), default=0)
         if source_height == 0 or source_width == 0:
@@ -275,6 +280,11 @@ class Plane:
                 ] = cell
 
         self.state = expanded_state
+
+    @staticmethod
+    def _validate_insertion_coordinate(value, name):
+        if isinstance(value, bool) or not isinstance(value, int):
+            raise TypeError(f"{name} must be an integer")
 
     def insert_plane_in_all_corners(self, plane: Plane):
         plane_b = plane.copy().rotate_by(1)
