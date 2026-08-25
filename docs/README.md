@@ -6,6 +6,11 @@ The project README and any document marked `human-owned` remain authoritative. A
 
 Never store credentials, private data, generated output, logs, datasets, or build artifacts here. Preserve unrelated local work and keep each change focused.
 
+## Roadmap handoffs
+
+- [Publishability decision](../ROADMAP.md#next): README and dependency/setup clarity are covered; license selection remains a human decision.
+- [Cellular-automata family connection](../ROADMAP.md#later): the shared write-up linking this project with `toy-projects/CellularAutomata` and the Rule 30 work remains planned.
+
 ## Verified instruments
 
 - `Board.find_cycle_period` detects the first repeated board state within a bounded
