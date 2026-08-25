@@ -56,6 +56,18 @@ class CreatureTest(unittest.TestCase):
 
         self.assertEqual(loaded.state, GLIDER.state)
 
+    def test_load_creature_from_str_accepts_canonical_x_and_underscore_symbols(self):
+        loaded = CreatureLoader.load_creature_from_str("_X\nX_")
+
+        self.assertEqual(loaded.state, [[False, True], [True, False]])
+
+    def test_load_creature_from_str_rejects_non_canonical_symbols(self):
+        with self.assertRaisesRegex(
+            ValueError,
+            "Invalid pattern symbol 'O' at row 1, column 2",
+        ):
+            CreatureLoader.load_creature_from_str("XO_\n___")
+
     def test_load_creature_from_file_rejects_empty_pattern(self):
         with TemporaryDirectory() as temporary_directory:
             fixture_path = Path(temporary_directory) / "empty.txt"

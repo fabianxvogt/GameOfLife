@@ -22,11 +22,17 @@ class CreatureLoader:
             raise ValueError('Creature load error: Pattern rows cannot be empty!')
 
         creature_state = []
-        for row in rows:
+        for row_number, row in enumerate(rows, start=1):
             if len(row) != row_len:
                 raise ValueError('Creature load error: Rows lengths are not identical!')
             creature_row = []
-            for cell in row:
+            for column_number, cell in enumerate(row, start=1):
+                if cell not in ('X', '_'):
+                    raise ValueError(
+                        'Creature load error: Invalid pattern symbol '
+                        f'{cell!r} at row {row_number}, column {column_number}; '
+                        "expected 'X' or '_'."
+                    )
                 creature_row.append(cell == 'X')
             creature_state.append(creature_row)
         return Creature(creature_state)

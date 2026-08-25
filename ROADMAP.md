@@ -77,3 +77,6 @@ own rules.
   a silently empty CLI board, with a loader regression. [EMPIRICAL]
 - 2026-08-25: made pattern-file loading ignore an optional UTF-8 BOM, with a
   geometry-preserving loader regression. [EMPIRICAL]
+- 2026-08-25: made `CreatureLoader` reject non-`X`/non-`_` symbols instead of
+  silently converting them to dead cells, with canonical-alphabet and invalid-
+  symbol regressions. [EMPIRICAL]
