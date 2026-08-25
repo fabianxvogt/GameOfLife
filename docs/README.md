@@ -53,6 +53,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   plane can be safely appended to itself without iterating a growing list.
 - [Plane self-append ownership](agent-wave-2026-08-25-self-append-ownership.md)
   records the bounded termination regression and evidence.
+- Empty `Plane()` instances own independent state, and side-specific self-
+  composition snapshots the source before rotating the destination.
+- [Empty and side-specific composition](agent-wave-2026-08-25-empty-side-composition.md)
+  records the bounded geometry and ownership regressions.
 - `CombinedCreature` computes one global bounding box before inserting components,
   so multiple negative coordinates preserve their logical spacing instead of
   being shifted relative to earlier insertions.

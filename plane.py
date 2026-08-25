@@ -30,8 +30,8 @@ class Plane:
             else:
                 self.state = generate_empty_state(x_size, y_size)
         else:
-            self.state = NULL_STATE
-        self.last_state = NULL_STATE
+            self.state = []
+        self.last_state = []
 
     @staticmethod
     def _validate_initial_state(initial_state: Any) -> None:
@@ -122,15 +122,20 @@ class Plane:
 
     def append_plane_bottom(self, plane: Plane, n=1, space_between=2):
         source_rows = [list(row) for row in plane.state]
+        if not source_rows:
+            return
+        row_width = len(self.state[0]) if self.state else len(source_rows[0])
         for _ in range(n):
             for _ in range(space_between):
-                self.add_empty_row()
+                self.state.append([False] * row_width)
             for row in source_rows:
                 self.add_row(row)
 
     def append_plane(self, plane: Plane, append_side=BOTTOM, n=1, space_between=2):
-        self.rotate_by(append_side)
+        if not plane.state or n <= 0:
+            return
         rotated_plane = plane.copy().rotate_by(append_side)
+        self.rotate_by(append_side)
         self.append_plane_bottom(rotated_plane, n, space_between)
         self.rotate_by(0 if append_side == BOTTOM else 4 - append_side)
 

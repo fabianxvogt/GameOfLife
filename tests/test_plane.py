@@ -1,6 +1,6 @@
 import unittest
 
-from plane import Plane, RIGHT
+from plane import BOTTOM, LEFT, Plane, RIGHT, TOP
 
 
 class PlaneInsertTest(unittest.TestCase):
@@ -51,6 +51,16 @@ class PlaneInsertTest(unittest.TestCase):
         self.assertIsNot(original.state, copied.state)
         self.assertIsNot(original.state[0], copied.state[0])
 
+    def test_empty_planes_do_not_share_mutable_state(self):
+        first = Plane()
+        first.append_plane_bottom(Plane(initial_state=[[True]]), space_between=0)
+
+        second = Plane()
+
+        self.assertEqual(first.state, [[True]])
+        self.assertEqual(second.state, [])
+        self.assertIsNot(first.state, second.state)
+
     def test_append_plane_bottom_copies_source_rows(self):
         destination = Plane(initial_state=[[False, False]])
         source = Plane(initial_state=[[True, False], [False, True]])
@@ -85,6 +95,80 @@ class PlaneInsertTest(unittest.TestCase):
                 [False, True],
             ],
         )
+
+    def test_append_plane_handles_empty_destination_on_each_side(self):
+        source_state = [[True, False, False], [False, True, True]]
+
+        expected_by_side = {
+            BOTTOM: [
+                [False, False, False],
+                [False, False, False],
+                [True, False, False],
+                [False, True, True],
+            ],
+            LEFT: [
+                (False, False, True, False, False),
+                (False, False, False, True, True),
+            ],
+            TOP: [
+                (True, False, False),
+                (False, True, True),
+                (False, False, False),
+                (False, False, False),
+            ],
+            RIGHT: [
+                (True, False, False, False, False),
+                (False, True, True, False, False),
+            ],
+        }
+
+        for append_side, expected in expected_by_side.items():
+            with self.subTest(append_side=append_side):
+                destination = Plane()
+                source = Plane(initial_state=[row[:] for row in source_state])
+
+                destination.append_plane(
+                    source, append_side=append_side, space_between=2
+                )
+
+                self.assertEqual(destination.state, expected)
+                self.assertEqual(source.state, source_state)
+                source.state[0][0] = False
+                self.assertEqual(destination.state, expected)
+
+    def test_append_plane_empty_source_is_a_no_op_on_each_side(self):
+        destination_state = [[True, False, True], [False, True, False]]
+
+        for append_side in (BOTTOM, LEFT, TOP, RIGHT):
+            with self.subTest(append_side=append_side):
+                destination = Plane(
+                    initial_state=[row[:] for row in destination_state]
+                )
+
+                destination.append_plane(Plane(), append_side=append_side)
+
+                self.assertEqual(destination.state, destination_state)
+
+    def test_append_plane_self_composition_matches_independent_source_on_each_side(
+        self,
+    ):
+        source_state = [[True, False, False], [False, True, True]]
+
+        for append_side in (BOTTOM, LEFT, TOP, RIGHT):
+            with self.subTest(append_side=append_side):
+                expected = Plane(initial_state=[row[:] for row in source_state])
+                expected.append_plane(
+                    Plane(initial_state=[row[:] for row in source_state]),
+                    append_side=append_side,
+                    space_between=1,
+                )
+
+                actual = Plane(initial_state=[row[:] for row in source_state])
+                actual.append_plane(
+                    actual, append_side=append_side, space_between=1
+                )
+
+                self.assertEqual(actual.state, expected.state)
 
     def test_append_plane_preserves_source_geometry_when_rotating_for_side(self):
         destination = Plane(initial_state=[[False, False], [False, False]])

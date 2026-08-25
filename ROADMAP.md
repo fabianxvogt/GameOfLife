@@ -10,7 +10,7 @@ own rules.
 1. [x] Write a concrete runnable blinker quickstart with expected console output.
 2. [x] Verify the test suite green after this week's bounds/stability fixes
    (`python3 -m pytest -q`) and note the Python version in the README. (Done
-   2026-08-25; 50 tests pass on the documented Python 3.9+ runtime.)
+   2026-08-25; 60 tests pass on the documented Python 3.9+ runtime.)
 3. [x] Add 2–3 more classic creatures (glider, lightweight spaceship, and Gosper
    glider gun) with bounded tests. (Done 2026-08-25.)
 
@@ -100,3 +100,5 @@ own rules.
   of mutating the input plane's orientation or dimensions. [EMPIRICAL]
 - 2026-08-25: made bottom plane composition snapshot source rows before
   iteration, preventing non-terminating self-composition. [EMPIRICAL]
+- 2026-08-25: isolated empty-plane state and fixed side-specific self-
+  composition to preserve finite source geometry and termination. [EMPIRICAL]
