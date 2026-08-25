@@ -327,6 +327,106 @@ class PlaneInsertTest(unittest.TestCase):
 
                 self.assertEqual(destination.state, [[False, False]])
 
+    def test_append_plane_rejects_invalid_sides_before_mutation(self):
+        source_state = [[True, False, False], [False, True, True]]
+        destination_state = [[False, False], [True, False]]
+        invalid_sides = (
+            (4, ValueError),
+            (-1, ValueError),
+            (1.0, TypeError),
+            (1.5, TypeError),
+            (False, TypeError),
+            (True, TypeError),
+            ("right", TypeError),
+            (None, TypeError),
+        )
+
+        for append_side, exception_type in invalid_sides:
+            with self.subTest(append_side=append_side):
+                destination = Plane(
+                    initial_state=[row[:] for row in destination_state]
+                )
+                source = Plane(initial_state=[row[:] for row in source_state])
+
+                with self.assertRaisesRegex(
+                    exception_type,
+                    "append_side must be one of BOTTOM, LEFT, TOP, RIGHT",
+                ):
+                    destination.append_plane(
+                        source,
+                        append_side=append_side,
+                        n=2,
+                        space_between=1,
+                    )
+
+                self.assertEqual(destination.state, destination_state)
+                self.assertEqual(source.state, source_state)
+
+    def test_append_plane_non_positive_repetition_is_a_no_op_on_each_side(self):
+        source_state = [[True, False], [False, True]]
+        destination_state = [[False, True], [True, False]]
+
+        for append_side in (BOTTOM, LEFT, TOP, RIGHT):
+            for n in (0, -1):
+                with self.subTest(append_side=append_side, n=n):
+                    destination = Plane(
+                        initial_state=[row[:] for row in destination_state]
+                    )
+                    source = Plane(initial_state=[row[:] for row in source_state])
+
+                    destination.append_plane(
+                        source,
+                        append_side=append_side,
+                        n=n,
+                        space_between=2,
+                    )
+
+                    self.assertEqual(destination.state, destination_state)
+                    self.assertEqual(source.state, source_state)
+
+    def test_negative_spacing_is_bounded_no_gap_behavior(self):
+        source_state = [[True, False], [False, True]]
+        destination_state = [[False, True], [True, False]]
+
+        for append_side in (BOTTOM, LEFT, TOP, RIGHT):
+            with self.subTest(append_side=append_side):
+                expected = Plane(
+                    initial_state=[row[:] for row in destination_state]
+                )
+                expected.append_plane(
+                    Plane(initial_state=[row[:] for row in source_state]),
+                    append_side=append_side,
+                    n=2,
+                    space_between=0,
+                )
+
+                actual = Plane(
+                    initial_state=[row[:] for row in destination_state]
+                )
+                source = Plane(initial_state=[row[:] for row in source_state])
+                actual.append_plane(
+                    source,
+                    append_side=append_side,
+                    n=2,
+                    space_between=-1,
+                )
+
+                self.assertEqual(actual.state, expected.state)
+                self.assertEqual(source.state, source_state)
+
+    def test_append_plane_bottom_non_positive_repetition_is_a_no_op(self):
+        destination = Plane(initial_state=[[False, True], [True, False]])
+        source = Plane(initial_state=[[True, False], [False, True]])
+        original_state = [row[:] for row in destination.state]
+
+        for n in (0, -1):
+            with self.subTest(n=n):
+                destination.append_plane_bottom(
+                    source, n=n, space_between=2
+                )
+                self.assertEqual(destination.state, original_state)
+                self.assertEqual(source.state, [[True, False], [False, True]])
+
     def test_insert_plane_rejects_negative_coordinates_without_extension(self):
         destination = Plane(x_size=2, y_size=2)
         source = Plane(initial_state=[[True]])

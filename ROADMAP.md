@@ -106,3 +106,6 @@ own rules.
   rotate or otherwise mutate the destination. [EMPIRICAL]
 - 2026-08-25: padded unequal-width plane composition to a rectangular extent,
   preventing side-specific rotation from truncating source cells. [EMPIRICAL]
+- 2026-08-25: rejected invalid `append_side` values before composition can
+  rotate or mutate the destination, with bounded evidence for non-positive
+  repetition and spacing controls. [EMPIRICAL]
