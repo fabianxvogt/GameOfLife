@@ -34,6 +34,16 @@ class CreatureTest(unittest.TestCase):
 
         self.assertTrue(combined.state[2][1])
 
+    def test_combined_creature_preserves_multiple_negative_coordinates(self):
+        combined = CombinedCreature(
+            {
+                (-1, 0): Creature([[True, True]]),
+                (-2, 0): Creature([[True]]),
+            }
+        )
+
+        self.assertEqual(combined.state, [[True, True, True]])
+
     def test_glider_pattern_has_five_live_cells(self):
         self.assertEqual(sum(map(sum, GLIDER.state)), 5)
 

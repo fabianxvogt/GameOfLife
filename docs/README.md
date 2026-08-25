@@ -41,6 +41,11 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   copied row cannot mutate the source plane.
 - [Plane copy contract](agent-wave-2026-08-25-plane-copy-contract.md) records
   the aliasing regression and its focused test.
+- `CombinedCreature` computes one global bounding box before inserting components,
+  so multiple negative coordinates preserve their logical spacing instead of
+  being shifted relative to earlier insertions.
+- [CombinedCreature coordinate contract](agent-wave-2026-08-25-combined-creature-coordinates.md)
+  records the negative-coordinate regression and its focused test.
 - [Constructor state contract](agent-wave-2026-08-25-constructor-state-contract.md)
   records the compatibility coverage and the prevented string-as-board corruption.
 - `cli.py --x` and `--y` place a loaded pattern at a non-negative offset on a
