@@ -44,6 +44,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
 - `Plane.copy()` normalizes rows copied from rotated or composed planes to
   mutable lists; [the empty-copy/rotation boundary note](agent-wave-2026-08-25-empty-copy-rotate.md)
   records the empty-plane and `1×1` transform regressions.
+- `Plane.add_empty_col()` accepts tuple-backed rows from repeated rotations and
+  side-specific composition while preserving source ownership; the same
+  [empty-copy/rotation boundary note](agent-wave-2026-08-25-empty-copy-rotate.md)
+  records the bounded regression.
 - `Plane.append_plane_bottom` copies source row containers, so composing a
   plane does not share mutable rows with its source.
 - [Composition row isolation](agent-wave-2026-08-25-composition-row-isolation.md)

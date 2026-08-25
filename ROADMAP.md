@@ -132,3 +132,6 @@ own rules.
 - 2026-08-25: made copies of rotated/composed planes remain independently
   mutable, and pinned empty-plane dimensions plus the minimal `1×1` full-turn
   transform boundary. [EMPIRICAL]
+- 2026-08-25: made `Plane.add_empty_col()` rebuild tuple-backed rows before
+  mutation, closing the repeated-rotation and all-side composition mutability
+  boundary without changing source ownership. [EMPIRICAL]

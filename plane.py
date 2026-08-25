@@ -96,7 +96,7 @@ class Plane:
         self.state.append(list(row))
 
     def add_empty_col(self):
-        [self.state[i].append(False) for i in range(self.y_len())]
+        self.state = [list(row) + [False] for row in self.state]
 
     def rotate_by(self, steps):
         for _ in range(steps):

@@ -56,6 +56,51 @@ class PlaneInsertTest(unittest.TestCase):
         )
         self.assertEqual(original.state, [(False, True), (True, False)])
 
+    def test_repeated_rotations_keep_column_mutation_source_owned(self):
+        source_state = [[True, False, False], [False, True, True]]
+        original = Plane(initial_state=[row[:] for row in source_state])
+        rotated = original.copy().rotate_by(8)
+
+        rotated.add_empty_col()
+
+        self.assertEqual(
+            rotated.state,
+            [row + [False] for row in source_state],
+        )
+        self.assertEqual(original.state, source_state)
+
+    def test_composition_and_repeated_rotation_keep_rows_mutable_and_source_owned(
+        self,
+    ):
+        source = Plane(
+            initial_state=[[True, False, True], [False, True, False]]
+        )
+        source.rotate_by(8)
+        source_snapshot = [list(row) for row in source.state]
+
+        for append_side in (BOTTOM, LEFT, TOP, RIGHT):
+            with self.subTest(append_side=append_side):
+                destination = Plane(
+                    initial_state=[[False, False], [False, False]]
+                )
+
+                destination.append_plane(
+                    source,
+                    append_side=append_side,
+                    n=2,
+                    space_between=1,
+                )
+                destination.rotate_by(4)
+                destination.add_empty_col()
+                destination.state[0][0] = not destination.state[0][0]
+
+                self.assertTrue(
+                    all(isinstance(row, list) for row in destination.state)
+                )
+                self.assertEqual(
+                    [list(row) for row in source.state], source_snapshot
+                )
+
     def test_rotate_by_full_turn_preserves_minimal_plane(self):
         plane = Plane(initial_state=[[True]])
 
