@@ -4,6 +4,21 @@ from plane import Plane
 
 
 class PlaneInsertTest(unittest.TestCase):
+    def test_empty_initial_state_preserves_size_constructor_behavior(self):
+        plane = Plane(initial_state=[], x_size=2, y_size=3)
+
+        self.assertEqual(plane.state, [[False, False, False], [False, False, False]])
+
+    def test_initial_state_rejects_text_instead_of_treating_it_as_rows(self):
+        with self.assertRaisesRegex(TypeError, "list of boolean rows"):
+            Plane(initial_state="X_")
+
+    def test_initial_state_requires_rectangular_boolean_rows(self):
+        with self.assertRaisesRegex(ValueError, "equal lengths"):
+            Plane(initial_state=[[True], [False, True]])
+        with self.assertRaisesRegex(TypeError, "cells must be bool"):
+            Plane(initial_state=[[1]])
+
     def test_rotate_uses_python39_compatible_zip_behavior(self):
         plane = Plane(initial_state=[[True, False, False], [False, True, False]])
 

@@ -5,6 +5,12 @@ This is an implementation of the Game of Life as a console app, combined with a 
 
 You can import your creatures, place them somewhere on the board and run them with your own rules.
 
+Library state constructors accept a rectangular 2-D list of boolean cells;
+invalid state types, ragged rows, empty rows, and non-boolean cells are rejected
+instead of being interpreted as a different board shape. `Creature` continues to
+accept the existing pattern-string form, and an empty list remains the empty-plane
+sentinel used by composition code.
+
 ## Quickstart
 
 Run a three-cell blinker for one generation:

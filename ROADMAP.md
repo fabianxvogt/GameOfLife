@@ -80,3 +80,6 @@ own rules.
 - 2026-08-25: made `CreatureLoader` reject non-`X`/non-`_` symbols instead of
   silently converting them to dead cells, with canonical-alphabet and invalid-
   symbol regressions. [EMPIRICAL]
+- 2026-08-25: added a rectangular boolean-state contract for `Plane` and
+  `Creature` constructors, preventing text states from being silently treated
+  as board rows. [EMPIRICAL]

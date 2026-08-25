@@ -16,7 +16,10 @@ class Plane:
         self, initial_state: Any = None, x_size=0, y_size=0, chance_for_active_cell=0
     ) -> None:
         self.state: Any = None
-        if initial_state:
+        if initial_state is not None and not (
+            isinstance(initial_state, list) and not initial_state
+        ):
+            self._validate_initial_state(initial_state)
             self.state = initial_state
         elif x_size > 0 and y_size > 0:
             if chance_for_active_cell > 0:
@@ -28,6 +31,27 @@ class Plane:
         else:
             self.state = NULL_STATE
         self.last_state = NULL_STATE
+
+    @staticmethod
+    def _validate_initial_state(initial_state: Any) -> None:
+        if not isinstance(initial_state, list):
+            raise TypeError("initial_state must be a list of boolean rows")
+        if not initial_state:
+            return
+        if not all(isinstance(row, (list, tuple)) for row in initial_state):
+            raise TypeError("initial_state must be a list of boolean rows")
+
+        row_width = len(initial_state[0])
+        if row_width == 0:
+            raise ValueError("initial_state rows cannot be empty")
+        if any(len(row) != row_width for row in initial_state):
+            raise ValueError("initial_state rows must have equal lengths")
+        if any(
+            not isinstance(cell, bool)
+            for row in initial_state
+            for cell in row
+        ):
+            raise TypeError("initial_state cells must be bool")
 
     def x_len(self):
         return len(self.state[0])

@@ -8,6 +8,8 @@ class Creature(Plane):
             super().__init__(state)
         elif isinstance(state, str):
             super().__init__(generate_state_from_state_string(state))
+        else:
+            raise TypeError("state must be a pattern string or a list of boolean rows")
 
     def copy(self):
         return Creature(copy.deepcopy(self.state))

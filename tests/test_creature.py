@@ -10,6 +10,15 @@ from creatures.single.lwss import LWSS
 
 
 class CreatureTest(unittest.TestCase):
+    def test_constructor_still_accepts_pattern_strings(self):
+        creature = Creature("_X\nX_")
+
+        self.assertEqual(creature.state, [[False, True], [True, False]])
+
+    def test_constructor_rejects_unsupported_state_types(self):
+        with self.assertRaisesRegex(TypeError, "pattern string or a list"):
+            Creature(42)
+
     def test_copy_isolates_nested_state(self):
         original = Creature([[True, False], [False, True]])
 

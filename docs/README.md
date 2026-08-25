@@ -31,6 +31,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   records the scoped regression and evidence for this loader boundary.
 - `CreatureLoader.load_creature_from_file(...)` accepts an optional UTF-8 BOM
   before the first pattern row, preserving geometry for editor-produced files.
+- `Plane` and list-backed `Creature` constructors require rectangular 2-D boolean
+  state; text, ragged rows, empty rows, and non-boolean cells are rejected.
+- [Constructor state contract](agent-wave-2026-08-25-constructor-state-contract.md)
+  records the compatibility coverage and the prevented string-as-board corruption.
 - `cli.py --x` and `--y` place a loaded pattern at a non-negative offset on a
   finite board sized just large enough to contain it.
 - `cli.py` provides bounded batch stepping and a prompt-driven step/reset/quit
