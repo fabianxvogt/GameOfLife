@@ -71,3 +71,5 @@ own rules.
   support on Python 3.9 and 3.11. [EMPIRICAL]
 - 2026-08-25: replaced the Python 3.10-only `zip(strict=False)` rotation call
   with the Python 3.9-compatible default and added a rotation regression. [EMPIRICAL]
+- 2026-08-25: exposed optional `cli.main(...)` input/output callbacks so the
+  interactive entry point has a dependency-free test seam. [EMPIRICAL]

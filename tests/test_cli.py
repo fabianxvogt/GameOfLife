@@ -120,6 +120,19 @@ class CliTest(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertEqual(output.getvalue(), "Generation 0\nXX\nXX\n")
 
+    def test_main_accepts_injected_interactive_io(self):
+        commands = iter(["quit"])
+        output = []
+
+        exit_code = main(
+            ["--interactive"],
+            input_fn=lambda prompt: next(commands),
+            output_fn=output.append,
+        )
+
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(output, ["Generation 0\n_X_\n__X\nXXX"])
+
 
 if __name__ == "__main__":
     unittest.main()

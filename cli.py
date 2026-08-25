@@ -140,15 +140,20 @@ def run_interactive(
     return board
 
 
-def main(argv: Optional[Sequence[str]] = None) -> int:
+def main(
+    argv: Optional[Sequence[str]] = None,
+    input_fn: Callable[[str], str] = input,
+    output_fn: Callable[[str], None] = print,
+) -> int:
+    """Run the CLI with optional I/O callbacks for embedding and tests."""
     args = build_parser().parse_args(argv)
     board = load_board(args.pattern, start_x=args.x, start_y=args.y)
     rule = build_rule(args.rule)
 
     if args.interactive:
-        run_interactive(board, rule)
+        run_interactive(board, rule, input_fn=input_fn, output_fn=output_fn)
     else:
-        print("\n\n".join(run_steps(board, rule, args.steps)))
+        output_fn("\n\n".join(run_steps(board, rule, args.steps)))
     return 0
 
 
