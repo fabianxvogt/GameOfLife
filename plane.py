@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from typing import Any
 
 from rules.rule import Rule
@@ -107,7 +108,7 @@ class Plane:
         return self
 
     def copy(self):
-        return Plane(self.state)
+        return Plane(copy.deepcopy(self.state))
 
     def __str__(self) -> str:
         return "\n".join(

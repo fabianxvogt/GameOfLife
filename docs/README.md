@@ -37,6 +37,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   before the first pattern row, preserving geometry for editor-produced files.
 - `Plane` and list-backed `Creature` constructors require rectangular 2-D boolean
   state; text, ragged rows, empty rows, and non-boolean cells are rejected.
+- `Plane.copy()` returns an independent nested cell-state payload, so mutating a
+  copied row cannot mutate the source plane.
+- [Plane copy contract](agent-wave-2026-08-25-plane-copy-contract.md) records
+  the aliasing regression and its focused test.
 - [Constructor state contract](agent-wave-2026-08-25-constructor-state-contract.md)
   records the compatibility coverage and the prevented string-as-board corruption.
 - `cli.py --x` and `--y` place a loaded pattern at a non-negative offset on a

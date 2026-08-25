@@ -41,6 +41,16 @@ class PlaneInsertTest(unittest.TestCase):
 
         self.assertEqual(plane.normalized_state_key(), ((True, False), (False, True)))
 
+    def test_copy_does_not_share_nested_state(self):
+        original = Plane(initial_state=[[True, False], [False, True]])
+
+        copied = original.copy()
+        copied.state[0][0] = False
+
+        self.assertTrue(original.state[0][0])
+        self.assertIsNot(original.state, copied.state)
+        self.assertIsNot(original.state[0], copied.state[0])
+
     def test_insert_plane_rejects_negative_coordinates_without_extension(self):
         destination = Plane(x_size=2, y_size=2)
         source = Plane(initial_state=[[True]])

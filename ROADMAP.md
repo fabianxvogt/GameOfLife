@@ -89,3 +89,5 @@ own rules.
 - 2026-08-25: made `Board.find_cycle_period` reject non-integer generation
   budgets, including booleans, with a no-mutation regression aligned with the
   CLI's integer-only `--steps` control. [EMPIRICAL]
+- 2026-08-25: made `Plane.copy()` deep-copy nested cell rows, preventing a
+  mutation through a copied plane from changing the original state. [EMPIRICAL]
