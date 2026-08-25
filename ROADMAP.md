@@ -86,3 +86,6 @@ own rules.
 - 2026-08-25: made `Board.find_cycle_period` reject negative generation budgets
   before mutating the board, with a direct-API regression aligned with the CLI's
   non-negative bounded controls. [EMPIRICAL]
+- 2026-08-25: made `Board.find_cycle_period` reject non-integer generation
+  budgets, including booleans, with a no-mutation regression aligned with the
+  CLI's integer-only `--steps` control. [EMPIRICAL]

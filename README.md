@@ -60,8 +60,9 @@ Gosper fixture's 36×9 core returns after 30 generations; the regression suite
 pins these bounded behaviors.
 `Board.find_cycle_period` can optionally compare translation-normalized live-cell
 geometry with `normalize_translation=True` when analyzing moving patterns. Its
-`max_generations` argument is a non-negative, inclusive transition budget; a
-negative value is rejected before stepping the board.
+`max_generations` argument is a non-negative integer and inclusive transition
+budget; non-integers (including booleans) raise `TypeError`, while negative
+values raise `ValueError`, before stepping the board.
 The rule interface also includes `rules.highlife_rule.HighLifeRule`, implementing
 HighLife's `B36/S23` birth and survival counts.
 Creature patterns can be saved and loaded with

@@ -14,8 +14,9 @@ Never store credentials, private data, generated output, logs, datasets, or buil
 ## Verified instruments
 
 - `Board.find_cycle_period` detects the first repeated board state within a bounded
-  non-negative generation budget; a negative budget is rejected before the board
-  is mutated. The period-3 regression test lives in `tests/test_board.py`.
+  non-negative integer generation budget; non-integers and negative budgets are
+  rejected before the board is mutated. The period-3 regression test lives in
+  `tests/test_board.py`.
 - `Board.find_cycle_period(..., normalize_translation=True)` compares live-cell
   geometry after removing dead outer padding, so bounded translating-pattern checks
   can be explicit without changing the default exact-state behavior.

@@ -105,6 +105,29 @@ class BoardTest(unittest.TestCase):
         self.assertEqual(board.state, [[True]])
         self.assertEqual(calls, 0)
 
+    def test_find_cycle_period_rejects_non_integer_generation_budget_without_mutation(self):
+        board = Board(initial_state=[[True]])
+        calls = 0
+
+        def next_state(rule):
+            nonlocal calls
+            calls += 1
+            return [[False]]
+
+        board.get_new_state = next_state
+
+        for invalid_budget in (1.5, True):
+            with self.subTest(invalid_budget=invalid_budget):
+                with self.assertRaisesRegex(
+                    TypeError, "max_generations must be an integer"
+                ):
+                    board.find_cycle_period(
+                        Rule(), max_generations=invalid_budget
+                    )
+
+        self.assertEqual(board.state, [[True]])
+        self.assertEqual(calls, 0)
+
     def test_find_cycle_period_detects_padded_pulsar(self):
         pulsar = [
             [cell == "X" for cell in row]

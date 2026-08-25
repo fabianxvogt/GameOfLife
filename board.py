@@ -37,6 +37,8 @@ class Board(Plane):
 
         ``max_generations`` is an inclusive, non-negative transition budget.
         """
+        if isinstance(max_generations, bool) or not isinstance(max_generations, int):
+            raise TypeError("max_generations must be an integer")
         if max_generations < 0:
             raise ValueError("max_generations must be non-negative")
 
