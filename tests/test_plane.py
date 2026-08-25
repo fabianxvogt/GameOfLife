@@ -67,6 +67,25 @@ class PlaneInsertTest(unittest.TestCase):
         self.assertIsNot(destination.state[1], source.state[0])
         self.assertIsNot(destination.state[2], source.state[1])
 
+    def test_append_plane_bottom_handles_destination_as_source(self):
+        plane = Plane(initial_state=[[True, False], [False, True]])
+
+        plane.append_plane_bottom(plane, n=2, space_between=1)
+
+        self.assertEqual(
+            plane.state,
+            [
+                [True, False],
+                [False, True],
+                [False, False],
+                [True, False],
+                [False, True],
+                [False, False],
+                [True, False],
+                [False, True],
+            ],
+        )
+
     def test_append_plane_preserves_source_geometry_when_rotating_for_side(self):
         destination = Plane(initial_state=[[False, False], [False, False]])
         source = Plane(initial_state=[[True, False, False], [False, True, False]])

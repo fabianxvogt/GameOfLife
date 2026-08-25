@@ -121,10 +121,11 @@ class Plane:
         )
 
     def append_plane_bottom(self, plane: Plane, n=1, space_between=2):
+        source_rows = [list(row) for row in plane.state]
         for _ in range(n):
             for _ in range(space_between):
                 self.add_empty_row()
-            for row in plane.state:
+            for row in source_rows:
                 self.add_row(row)
 
     def append_plane(self, plane: Plane, append_side=BOTTOM, n=1, space_between=2):

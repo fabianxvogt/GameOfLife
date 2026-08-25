@@ -49,6 +49,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   using a plane as an input does not change its orientation or dimensions.
 - [Composition source geometry](agent-wave-2026-08-25-composition-source-geometry.md)
   records the source-dimension regression and bounded evidence.
+- `Plane.append_plane_bottom` snapshots source rows before composition, so a
+  plane can be safely appended to itself without iterating a growing list.
+- [Plane self-append ownership](agent-wave-2026-08-25-self-append-ownership.md)
+  records the bounded termination regression and evidence.
 - `CombinedCreature` computes one global bounding box before inserting components,
   so multiple negative coordinates preserve their logical spacing instead of
   being shifted relative to earlier insertions.

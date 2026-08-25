@@ -98,3 +98,5 @@ own rules.
   source/composed-state aliasing through `append_plane_bottom`. [EMPIRICAL]
 - 2026-08-25: made side-specific plane composition rotate a source copy instead
   of mutating the input plane's orientation or dimensions. [EMPIRICAL]
+- 2026-08-25: made bottom plane composition snapshot source rows before
+  iteration, preventing non-terminating self-composition. [EMPIRICAL]
