@@ -29,6 +29,23 @@ class CreatureTest(unittest.TestCase):
         self.assertEqual(original.state, [[True, False], [False, True]])
         self.assertEqual(copied.state, [[False, False], [False, True, True]])
 
+    def test_copy_after_rotation_normalizes_tuple_rows_and_preserves_source(self):
+        original = Creature(
+            [[True, False, True], [False, True, False]]
+        )
+        original.rotate_by(5)
+        original_snapshot = [tuple(row) for row in original.state]
+
+        copied = original.copy()
+        copied.state[0][0] = not copied.state[0][0]
+        copied.add_empty_row()
+        copied.add_empty_col()
+
+        self.assertTrue(all(isinstance(row, list) for row in copied.state))
+        self.assertEqual(
+            [tuple(row) for row in original.state], original_snapshot
+        )
+
     def test_combined_creature_accepts_coordinate_mapping(self):
         combined = CombinedCreature({(1, 2): Creature([[True]])})
 

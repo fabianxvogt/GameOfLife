@@ -41,6 +41,11 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   copied row cannot mutate the source plane.
 - [Plane copy contract](agent-wave-2026-08-25-plane-copy-contract.md) records
   the aliasing regression and its focused test.
+- `Creature.copy()` also normalizes rows copied after rotation to mutable lists,
+  preserving direct cell mutation and source ownership across the subclass
+  copy boundary.
+- [Creature rotated-copy contract](agent-wave-2026-08-25-creature-copy-rotate.md)
+  records the focused regression and bounded evidence.
 - `Plane.copy()` normalizes rows copied from rotated or composed planes to
   mutable lists; [the empty-copy/rotation boundary note](agent-wave-2026-08-25-empty-copy-rotate.md)
   records the empty-plane and `1×1` transform regressions.

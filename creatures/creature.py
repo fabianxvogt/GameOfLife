@@ -12,7 +12,8 @@ class Creature(Plane):
             raise TypeError("state must be a pattern string or a list of boolean rows")
 
     def copy(self):
-        return Creature(copy.deepcopy(self.state))
+        copied_state = copy.deepcopy(self.state)
+        return Creature([list(row) for row in copied_state])
     
 
 class CreatureLoader:

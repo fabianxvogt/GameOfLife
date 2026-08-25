@@ -91,6 +91,9 @@ own rules.
   CLI's integer-only `--steps` control. [EMPIRICAL]
 - 2026-08-25: made `Plane.copy()` deep-copy nested cell rows, preventing a
   mutation through a copied plane from changing the original state. [EMPIRICAL]
+- 2026-08-25: made `Creature.copy()` normalize tuple rows produced by rotation,
+  preserving direct mutation of the copied creature without changing the source.
+  [EMPIRICAL]
 - 2026-08-25: made `CombinedCreature` normalize all component coordinates against
   one global bounding box, preserving spacing when multiple components extend
   into negative coordinates. [EMPIRICAL]
