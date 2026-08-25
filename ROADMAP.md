@@ -114,6 +114,9 @@ own rules.
   [EMPIRICAL]
 - 2026-08-25: pinned the exact-fit `Plane.insert_plane_at` bottom-right
   boundary for a one-cell source in a minimal `2×2` destination. [EMPIRICAL]
+- 2026-08-25: pinned an exact top-right fit for a multi-cell source and its
+  post-insertion ownership boundary, so destination edits do not mutate the
+  source. [EMPIRICAL]
 - 2026-08-25: made `Plane.insert_plane_in_all_corners` treat an empty source as
   a no-op, with bounded asymmetric-corner coordinate and source-ownership
   regressions. [EMPIRICAL]

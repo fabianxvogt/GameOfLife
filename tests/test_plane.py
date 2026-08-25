@@ -551,6 +551,28 @@ class PlaneInsertTest(unittest.TestCase):
             [[False, False], [False, True]],
         )
 
+    def test_insert_plane_accepts_exact_top_right_fit_without_source_aliasing(self):
+        destination = Plane(initial_state=[[False] * 5 for _ in range(4)])
+        source_state = [[True, False], [False, True], [True, True]]
+        source = Plane(initial_state=[row[:] for row in source_state])
+
+        destination.insert_plane_at(source, 3, 0)
+
+        self.assertEqual(
+            destination.state,
+            [
+                [False, False, False, True, False],
+                [False, False, False, False, True],
+                [False, False, False, True, True],
+                [False, False, False, False, False],
+            ],
+        )
+        self.assertEqual(source.state, source_state)
+
+        destination.state[0][3] = False
+
+        self.assertEqual(source.state, source_state)
+
     def test_insert_plane_rejects_invalid_coordinate_controls_before_mutation(self):
         source_state = [[True, False], [False, True]]
         destination_state = [[False, False], [False, False]]

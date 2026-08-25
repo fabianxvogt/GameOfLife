@@ -77,6 +77,9 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   the destination boundary without extension; [the exact insertion boundary
   note](agent-wave-2026-08-25-exact-insertion-boundary.md) records the minimal
   `2×2`/one-cell regression.
+- A multi-cell source also has an exact top-right fit without source aliasing;
+  [the exact top-right insertion ownership note](agent-wave-2026-08-25-exact-top-right-insertion-ownership.md)
+  records the bounded geometry and post-insertion ownership check.
 - `Plane.insert_plane_in_all_corners` treats an empty source as a no-op and
   uses independent rotations for bounded asymmetric corner placement.
 - [Corner insertion contract](agent-wave-2026-08-25-corner-insertion-contract.md)
