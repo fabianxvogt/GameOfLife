@@ -189,6 +189,38 @@ class PlaneInsertTest(unittest.TestCase):
             ],
         )
 
+    def test_append_plane_rejects_non_integer_controls_before_rotation(self):
+        source = Plane(initial_state=[[True, False], [False, True]])
+        original_state = [[True, False], [False, True]]
+
+        for append_side in (BOTTOM, LEFT, TOP, RIGHT):
+            for invalid_kwargs in ({"n": 1.5}, {"space_between": 1.5}):
+                with self.subTest(append_side=append_side, invalid_kwargs=invalid_kwargs):
+                    destination = Plane(initial_state=[row[:] for row in original_state])
+
+                    parameter = next(iter(invalid_kwargs))
+                    with self.assertRaisesRegex(
+                        TypeError, f"{parameter} must be an integer"
+                    ):
+                        destination.append_plane(
+                            source,
+                            append_side=append_side,
+                            **invalid_kwargs,
+                        )
+
+                    self.assertEqual(destination.state, original_state)
+
+    def test_append_plane_bottom_rejects_non_integer_controls_before_appending(self):
+        destination = Plane(initial_state=[[False, False]])
+        source = Plane(initial_state=[[True, False]])
+
+        for invalid_kwargs in ({"n": 1.5}, {"space_between": 1.5}):
+            with self.subTest(invalid_kwargs=invalid_kwargs):
+                with self.assertRaises(TypeError):
+                    destination.append_plane_bottom(source, **invalid_kwargs)
+
+                self.assertEqual(destination.state, [[False, False]])
+
     def test_insert_plane_rejects_negative_coordinates_without_extension(self):
         destination = Plane(x_size=2, y_size=2)
         source = Plane(initial_state=[[True]])

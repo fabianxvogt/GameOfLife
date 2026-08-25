@@ -102,3 +102,5 @@ own rules.
   iteration, preventing non-terminating self-composition. [EMPIRICAL]
 - 2026-08-25: isolated empty-plane state and fixed side-specific self-
   composition to preserve finite source geometry and termination. [EMPIRICAL]
+- 2026-08-25: validated integer append controls before plane composition can
+  rotate or otherwise mutate the destination. [EMPIRICAL]

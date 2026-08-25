@@ -57,6 +57,8 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   composition snapshots the source before rotating the destination.
 - [Empty and side-specific composition](agent-wave-2026-08-25-empty-side-composition.md)
   records the bounded geometry and ownership regressions.
+- [Composition control contract](agent-wave-2026-08-25-composition-control-contract.md)
+  records pre-mutation validation for non-integer append controls.
 - `CombinedCreature` computes one global bounding box before inserting components,
   so multiple negative coordinates preserve their logical spacing instead of
   being shifted relative to earlier insertions.

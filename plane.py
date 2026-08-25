@@ -121,6 +121,8 @@ class Plane:
         )
 
     def append_plane_bottom(self, plane: Plane, n=1, space_between=2):
+        self._validate_composition_integer(n, "n")
+        self._validate_composition_integer(space_between, "space_between")
         source_rows = [list(row) for row in plane.state]
         if not source_rows:
             return
@@ -132,12 +134,19 @@ class Plane:
                 self.add_row(row)
 
     def append_plane(self, plane: Plane, append_side=BOTTOM, n=1, space_between=2):
+        self._validate_composition_integer(n, "n")
+        self._validate_composition_integer(space_between, "space_between")
         if not plane.state or n <= 0:
             return
         rotated_plane = plane.copy().rotate_by(append_side)
         self.rotate_by(append_side)
         self.append_plane_bottom(rotated_plane, n, space_between)
         self.rotate_by(0 if append_side == BOTTOM else 4 - append_side)
+
+    @staticmethod
+    def _validate_composition_integer(value, name):
+        if isinstance(value, bool) or not isinstance(value, int):
+            raise TypeError(f"{name} must be an integer")
 
     def insert_plane_at(
         self, plane: Plane, start_x, start_y, allow_plane_extension=False
