@@ -94,3 +94,5 @@ own rules.
 - 2026-08-25: made `CombinedCreature` normalize all component coordinates against
   one global bounding box, preserving spacing when multiple components extend
   into negative coordinates. [EMPIRICAL]
+- 2026-08-25: made plane composition copy appended row containers, preventing
+  source/composed-state aliasing through `append_plane_bottom`. [EMPIRICAL]

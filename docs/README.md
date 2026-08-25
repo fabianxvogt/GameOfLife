@@ -41,6 +41,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   copied row cannot mutate the source plane.
 - [Plane copy contract](agent-wave-2026-08-25-plane-copy-contract.md) records
   the aliasing regression and its focused test.
+- `Plane.append_plane_bottom` copies source row containers, so composing a
+  plane does not share mutable rows with its source.
+- [Composition row isolation](agent-wave-2026-08-25-composition-row-isolation.md)
+  records the bidirectional mutation regression and bounded evidence.
 - `CombinedCreature` computes one global bounding box before inserting components,
   so multiple negative coordinates preserve their logical spacing instead of
   being shifted relative to earlier insertions.

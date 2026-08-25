@@ -51,6 +51,22 @@ class PlaneInsertTest(unittest.TestCase):
         self.assertIsNot(original.state, copied.state)
         self.assertIsNot(original.state[0], copied.state[0])
 
+    def test_append_plane_bottom_copies_source_rows(self):
+        destination = Plane(initial_state=[[False, False]])
+        source = Plane(initial_state=[[True, False], [False, True]])
+
+        destination.append_plane_bottom(source, space_between=0)
+        source.state[0][0] = False
+        destination.state[2][1] = False
+
+        self.assertEqual(
+            destination.state,
+            [[False, False], [True, False], [False, False]],
+        )
+        self.assertEqual(source.state, [[False, False], [False, True]])
+        self.assertIsNot(destination.state[1], source.state[0])
+        self.assertIsNot(destination.state[2], source.state[1])
+
     def test_insert_plane_rejects_negative_coordinates_without_extension(self):
         destination = Plane(x_size=2, y_size=2)
         source = Plane(initial_state=[[True]])

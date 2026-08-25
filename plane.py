@@ -93,7 +93,7 @@ class Plane:
         self.state.append([False] * self.x_len())
 
     def add_row(self, row):
-        self.state.append(row)
+        self.state.append(list(row))
 
     def add_empty_col(self):
         [self.state[i].append(False) for i in range(self.y_len())]
