@@ -59,6 +59,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   records the bounded geometry and ownership regressions.
 - [Composition control contract](agent-wave-2026-08-25-composition-control-contract.md)
   records pre-mutation validation for non-integer append controls.
+- Unequal-width plane composition pads dead cells to a common rectangular
+  extent during side-specific assembly, preserving all source cells.
+- [Unequal composition geometry](agent-wave-2026-08-25-unequal-composition-geometry.md)
+  records the ragged-row truncation regression and bounded evidence.
 - `CombinedCreature` computes one global bounding box before inserting components,
   so multiple negative coordinates preserve their logical spacing instead of
   being shifted relative to earlier insertions.

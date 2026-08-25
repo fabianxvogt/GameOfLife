@@ -77,6 +77,24 @@ class PlaneInsertTest(unittest.TestCase):
         self.assertIsNot(destination.state[1], source.state[0])
         self.assertIsNot(destination.state[2], source.state[1])
 
+    def test_append_plane_bottom_pads_unequal_widths_without_losing_cells(self):
+        destination = Plane(initial_state=[[True, False]])
+        source = Plane(initial_state=[[False, True, False], [True, True, False]])
+
+        destination.append_plane_bottom(source, space_between=1)
+
+        self.assertEqual(
+            destination.state,
+            [
+                [True, False, False],
+                [False, False, False],
+                [False, True, False],
+                [True, True, False],
+            ],
+        )
+        self.assertEqual(sum(map(sum, destination.state)), 4)
+        self.assertTrue(all(len(row) == 3 for row in destination.state))
+
     def test_append_plane_bottom_handles_destination_as_source(self):
         plane = Plane(initial_state=[[True, False], [False, True]])
 
@@ -188,6 +206,94 @@ class PlaneInsertTest(unittest.TestCase):
                 (False, True, False, False, False),
             ],
         )
+
+    def test_append_plane_preserves_unequal_geometry_on_each_side(self):
+        cases = [
+            (
+                [[True, False], [False, False]],
+                [[False, True, False], [True, True, False]],
+            ),
+            (
+                [[True, False, True], [False, False, True]],
+                [[False, True]],
+            ),
+        ]
+
+        expected_first_case = {
+            BOTTOM: [
+                [True, False, False],
+                [False, False, False],
+                [False, False, False],
+                [False, True, False],
+                [True, True, False],
+            ],
+            LEFT: [
+                (True, False, False, False, True, False),
+                (False, False, False, True, True, False),
+            ],
+            TOP: [
+                (False, True, False),
+                (True, True, False),
+                (False, False, False),
+                (True, False, False),
+                (False, False, False),
+            ],
+            RIGHT: [
+                (False, True, False, False, True, False),
+                (True, True, False, False, False, False),
+            ],
+        }
+
+        for case_number, (destination_state, source_state) in enumerate(cases):
+            destination_height = len(destination_state)
+            destination_width = len(destination_state[0])
+            source_height = len(source_state)
+            source_width = len(source_state[0])
+            expected_population = sum(map(sum, destination_state)) + sum(
+                map(sum, source_state)
+            )
+
+            for append_side in (BOTTOM, LEFT, TOP, RIGHT):
+                with self.subTest(
+                    append_side=append_side,
+                    destination_width=destination_width,
+                    source_width=source_width,
+                ):
+                    destination = Plane(
+                        initial_state=[row[:] for row in destination_state]
+                    )
+                    source = Plane(initial_state=[row[:] for row in source_state])
+
+                    destination.append_plane(
+                        source,
+                        append_side=append_side,
+                        space_between=1,
+                    )
+
+                    if append_side in (BOTTOM, TOP):
+                        expected_height = (
+                            destination_height + source_height + 1
+                        )
+                        expected_width = max(destination_width, source_width)
+                    else:
+                        expected_height = max(destination_height, source_height)
+                        expected_width = (
+                            destination_width + source_width + 1
+                        )
+
+                    self.assertEqual(len(destination.state), expected_height)
+                    self.assertEqual(
+                        {len(row) for row in destination.state},
+                        {expected_width},
+                    )
+                    self.assertEqual(
+                        sum(map(sum, destination.state)), expected_population
+                    )
+                    self.assertEqual(source.state, source_state)
+                    if case_number == 0:
+                        self.assertEqual(
+                            destination.state, expected_first_case[append_side]
+                        )
 
     def test_append_plane_rejects_non_integer_controls_before_rotation(self):
         source = Plane(initial_state=[[True, False], [False, True]])

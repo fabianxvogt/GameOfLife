@@ -124,9 +124,15 @@ class Plane:
         self._validate_composition_integer(n, "n")
         self._validate_composition_integer(space_between, "space_between")
         source_rows = [list(row) for row in plane.state]
-        if not source_rows:
+        if not source_rows or n <= 0:
             return
-        row_width = len(self.state[0]) if self.state else len(source_rows[0])
+
+        row_width = max(
+            (len(row) for row in self.state + source_rows),
+            default=0,
+        )
+        self.state = self._pad_rows(self.state, row_width)
+        source_rows = self._pad_rows(source_rows, row_width)
         for _ in range(n):
             for _ in range(space_between):
                 self.state.append([False] * row_width)
@@ -138,15 +144,93 @@ class Plane:
         self._validate_composition_integer(space_between, "space_between")
         if not plane.state or n <= 0:
             return
-        rotated_plane = plane.copy().rotate_by(append_side)
-        self.rotate_by(append_side)
-        self.append_plane_bottom(rotated_plane, n, space_between)
-        self.rotate_by(0 if append_side == BOTTOM else 4 - append_side)
+
+        if append_side not in (BOTTOM, LEFT, TOP, RIGHT):
+            rotated_plane = plane.copy().rotate_by(append_side)
+            self.rotate_by(append_side)
+            self.append_plane_bottom(rotated_plane, n, space_between)
+            self.rotate_by(0 if append_side == BOTTOM else 4 - append_side)
+            return
+
+        destination_rows = [list(row) for row in self.state]
+        source_rows = [list(row) for row in plane.state]
+
+        if append_side in (BOTTOM, TOP):
+            row_width = max(
+                (len(row) for row in destination_rows + source_rows),
+                default=0,
+            )
+            destination_rows = self._pad_rows(destination_rows, row_width)
+            source_rows = self._pad_rows(source_rows, row_width)
+            empty_row = [False] * row_width
+
+            if append_side == BOTTOM:
+                combined_rows = destination_rows
+                for _ in range(n):
+                    combined_rows.extend(
+                        [empty_row.copy() for _ in range(space_between)]
+                    )
+                    combined_rows.extend(row[:] for row in source_rows)
+            else:
+                combined_rows = []
+                for _ in range(n):
+                    combined_rows.extend(row[:] for row in source_rows)
+                    combined_rows.extend(
+                        [empty_row.copy() for _ in range(space_between)]
+                    )
+                combined_rows.extend(destination_rows)
+
+            self.state = (
+                [tuple(row) for row in combined_rows]
+                if append_side == TOP
+                else combined_rows
+            )
+            return
+
+        destination_width = max(
+            (len(row) for row in destination_rows),
+            default=0,
+        )
+        source_width = max((len(row) for row in source_rows), default=0)
+        target_height = max(len(destination_rows), len(source_rows))
+        destination_rows = self._pad_rows(
+            destination_rows, destination_width
+        ) + [
+            [False] * destination_width
+            for _ in range(target_height - len(destination_rows))
+        ]
+        source_rows = self._pad_rows(source_rows, source_width) + [
+            [False] * source_width
+            for _ in range(target_height - len(source_rows))
+        ]
+        empty_columns = [False] * space_between
+        combined_rows = []
+        for destination_row, source_row in zip(destination_rows, source_rows):
+            if append_side == LEFT:
+                combined_row = destination_row[:]
+                for _ in range(n):
+                    combined_row.extend(empty_columns)
+                    combined_row.extend(source_row)
+            else:
+                combined_row = []
+                for _ in range(n):
+                    combined_row.extend(source_row)
+                    combined_row.extend(empty_columns)
+                combined_row.extend(destination_row)
+            combined_rows.append(tuple(combined_row))
+        self.state = combined_rows
 
     @staticmethod
     def _validate_composition_integer(value, name):
         if isinstance(value, bool) or not isinstance(value, int):
             raise TypeError(f"{name} must be an integer")
+
+    @staticmethod
+    def _pad_rows(rows, row_width):
+        return [
+            list(row) + [False] * (row_width - len(row))
+            for row in rows
+        ]
 
     def insert_plane_at(
         self, plane: Plane, start_x, start_y, allow_plane_extension=False

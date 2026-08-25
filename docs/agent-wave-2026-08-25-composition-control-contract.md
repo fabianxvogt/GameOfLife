@@ -2,7 +2,7 @@
 
 ## Finding
 
-`Plane.append_plane` rotates the destination before delegating to
+`Plane.append_plane` previously rotated the destination before delegating to
 `append_plane_bottom`. A non-integer `n` or `space_between` reached `range(...)`
 only after that rotation, so a failed non-bottom composition could leave the
 destination with changed orientation and dimensions.
