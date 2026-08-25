@@ -135,3 +135,6 @@ own rules.
 - 2026-08-25: made `Plane.add_empty_col()` rebuild tuple-backed rows before
   mutation, closing the repeated-rotation and all-side composition mutability
   boundary without changing source ownership. [EMPIRICAL]
+- 2026-08-25: made `Plane.add_empty_row()` preserve the empty-plane sentinel
+  and normalize tuple-backed rows before mutation, closing the corresponding
+  repeated-rotation and side-composition rectangularity boundary. [EMPIRICAL]

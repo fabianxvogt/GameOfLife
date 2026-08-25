@@ -101,6 +101,59 @@ class PlaneInsertTest(unittest.TestCase):
                     [list(row) for row in source.state], source_snapshot
                 )
 
+    def test_add_empty_row_preserves_empty_plane_sentinel(self):
+        plane = Plane()
+
+        plane.add_empty_row()
+
+        self.assertEqual(plane.state, [])
+        self.assertEqual((plane.x_len(), plane.y_len()), (0, 0))
+        self.assertEqual(plane.copy().state, [])
+
+    def test_add_empty_row_normalizes_repeatedly_rotated_compositions(self):
+        source = Plane(
+            initial_state=[[True, False, True], [False, True, False]]
+        )
+        source_snapshot = [list(row) for row in source.state]
+        expected_dimensions = {
+            BOTTOM: (9, 4),
+            LEFT: (3, 11),
+            TOP: (9, 4),
+            RIGHT: (3, 11),
+        }
+
+        for append_side in (BOTTOM, LEFT, TOP, RIGHT):
+            with self.subTest(append_side=append_side):
+                destination = Plane(
+                    initial_state=[[False, False], [False, False]]
+                )
+                destination.append_plane(
+                    source,
+                    append_side=append_side,
+                    n=2,
+                    space_between=1,
+                )
+                destination.rotate_by(5)
+
+                destination.add_empty_row()
+                destination.state[0][0] = not destination.state[0][0]
+                destination.add_empty_col()
+
+                self.assertEqual(
+                    (destination.x_len(), destination.y_len()),
+                    expected_dimensions[append_side],
+                )
+                self.assertEqual(
+                    len({len(row) for row in destination.state}),
+                    1,
+                )
+                self.assertTrue(
+                    all(isinstance(row, list) for row in destination.state)
+                )
+                self.assertEqual(
+                    [list(row) for row in source.state], source_snapshot
+                )
+
     def test_rotate_by_full_turn_preserves_minimal_plane(self):
         plane = Plane(initial_state=[[True]])
 

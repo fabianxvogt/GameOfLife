@@ -48,6 +48,11 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   side-specific composition while preserving source ownership; the same
   [empty-copy/rotation boundary note](agent-wave-2026-08-25-empty-copy-rotate.md)
   records the bounded regression.
+- `Plane.add_empty_row()` treats the empty-plane sentinel as a no-op and
+  normalizes tuple-backed rows before appending, preserving rectangular,
+  mutable ownership after repeated rotation and side-specific composition.
+- [Empty-row rotation and composition boundary](agent-wave-2026-08-25-empty-row-rotation.md)
+  records the bounded regression and empty-plane copy check.
 - `Plane.append_plane_bottom` copies source row containers, so composing a
   plane does not share mutable rows with its source.
 - [Composition row isolation](agent-wave-2026-08-25-composition-row-isolation.md)

@@ -90,7 +90,11 @@ class Plane:
         )
 
     def add_empty_row(self):
-        self.state.append([False] * self.x_len())
+        if not self.state:
+            return
+        row_width = self.x_len()
+        self.state = [list(row) for row in self.state]
+        self.state.append([False] * row_width)
 
     def add_row(self, row):
         self.state.append(list(row))
