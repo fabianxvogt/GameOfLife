@@ -112,3 +112,6 @@ own rules.
 - 2026-08-25: rejected boolean/non-integer `Plane.insert_plane_at` coordinates
   and non-boolean extension flags before placement can mutate either plane.
   [EMPIRICAL]
+- 2026-08-25: made `Plane.insert_plane_in_all_corners` treat an empty source as
+  a no-op, with bounded asymmetric-corner coordinate and source-ownership
+  regressions. [EMPIRICAL]

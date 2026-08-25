@@ -287,6 +287,9 @@ class Plane:
             raise TypeError(f"{name} must be an integer")
 
     def insert_plane_in_all_corners(self, plane: Plane):
+        if not plane.state:
+            return
+
         plane_b = plane.copy().rotate_by(1)
         plane_c = plane.copy().rotate_by(2)
         plane_d = plane.copy().rotate_by(3)

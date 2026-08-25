@@ -519,6 +519,40 @@ class PlaneInsertTest(unittest.TestCase):
                 self.assertEqual(destination.state, destination_state)
                 self.assertEqual(source.state, source_state)
 
+    def test_insert_plane_in_all_corners_empty_source_is_a_no_op(self):
+        destination_state = [[False, True, False], [True, False, True]]
+        destination = Plane(initial_state=[row[:] for row in destination_state])
+
+        destination.insert_plane_in_all_corners(Plane())
+
+        self.assertEqual(destination.state, destination_state)
+
+    def test_insert_plane_in_all_corners_preserves_asymmetric_coordinates_and_source(self):
+        source_state = [[True, False, False], [False, True, True]]
+        source = Plane(initial_state=[row[:] for row in source_state])
+        destination = Plane(initial_state=[[False] * 7 for _ in range(8)])
+
+        destination.insert_plane_in_all_corners(source)
+
+        self.assertEqual(
+            {
+                (y, x)
+                for y, row in enumerate(destination.state)
+                for x, cell in enumerate(row)
+                if cell
+            },
+            {
+                (0, 0), (1, 1), (1, 2),
+                (0, 6), (1, 5), (2, 5),
+                (6, 4), (6, 5), (7, 6),
+                (5, 1), (6, 1), (7, 0),
+            },
+        )
+        self.assertEqual(source.state, source_state)
+
+        destination.state[0][0] = False
+        self.assertEqual(source.state, source_state)
+
 
 if __name__ == "__main__":
     unittest.main()
