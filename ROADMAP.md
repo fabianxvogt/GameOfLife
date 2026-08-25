@@ -121,3 +121,6 @@ own rules.
 - 2026-08-25: made empty `Plane()` dimensions total by returning zero width
   alongside zero height, with a minimal-destination composition regression.
   [EMPIRICAL]
+- 2026-08-25: pinned rejection of boolean `n` and `space_between` composition
+  controls before empty-destination and one-cell bottom composition can
+  mutate state. [EMPIRICAL]

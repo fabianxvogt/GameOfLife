@@ -65,6 +65,10 @@ Never store credentials, private data, generated output, logs, datasets, or buil
   records pre-mutation validation for non-integer append controls.
 - [Append-side and non-positive controls](agent-wave-2026-08-25-append-side-controls.md)
   records the public side-domain validation and bounded no-gap behavior.
+- Boolean `n` and `space_between` controls are rejected before empty or
+  one-cell composition can mutate either plane.
+- [Composition boolean controls](agent-wave-2026-08-25-composition-boolean-controls.md)
+  records the bounded bool-as-int audit and no-mutation evidence.
 - `Plane.insert_plane_at` rejects boolean/non-integer coordinates and
   non-boolean extension flags before placement can alter either plane.
 - [Insertion-control contract](agent-wave-2026-08-25-insertion-control-contract.md)

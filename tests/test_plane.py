@@ -338,6 +338,50 @@ class PlaneInsertTest(unittest.TestCase):
 
                 self.assertEqual(destination.state, [[False, False]])
 
+    def test_append_plane_rejects_boolean_controls_before_empty_destination_noop(
+        self,
+    ):
+        source_state = [[True]]
+
+        for append_side in (BOTTOM, LEFT, TOP, RIGHT):
+            for invalid_kwargs in ({"n": True}, {"space_between": False}):
+                with self.subTest(
+                    append_side=append_side, invalid_kwargs=invalid_kwargs
+                ):
+                    destination = Plane()
+                    source = Plane(initial_state=[row[:] for row in source_state])
+
+                    with self.assertRaisesRegex(
+                        TypeError,
+                        next(iter(invalid_kwargs)) + " must be an integer",
+                    ):
+                        destination.append_plane(
+                            source,
+                            append_side=append_side,
+                            **invalid_kwargs,
+                        )
+
+                    self.assertEqual(destination.state, [])
+                    self.assertEqual(source.state, source_state)
+
+    def test_append_plane_bottom_rejects_boolean_controls_before_one_cell_mutation(
+        self,
+    ):
+        source = Plane(initial_state=[[True]])
+
+        for invalid_kwargs in ({"n": True}, {"space_between": False}):
+            with self.subTest(invalid_kwargs=invalid_kwargs):
+                destination = Plane(initial_state=[[False]])
+
+                with self.assertRaisesRegex(
+                    TypeError,
+                    next(iter(invalid_kwargs)) + " must be an integer",
+                ):
+                    destination.append_plane_bottom(source, **invalid_kwargs)
+
+                self.assertEqual(destination.state, [[False]])
+                self.assertEqual(source.state, [[True]])
+
     def test_append_plane_rejects_invalid_sides_before_mutation(self):
         source_state = [[True, False, False], [False, True, True]]
         destination_state = [[False, False], [True, False]]
